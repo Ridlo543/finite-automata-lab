@@ -9,8 +9,12 @@ import { isFormDataValid } from "./util";
 export let minimizedAutomaton;
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("minimizeButton").addEventListener("click", () => {
+  const minimizeButton = document.getElementById("minimizeButton");
+  minimizeButton.addEventListener("click", () => {
+    const stepsDiv = document.getElementById("equivalenceSteps");
+    stepsDiv.innerHTML = ""; // Kosongkan div sebelum melakukan pemangkasan ulang
     updateAutomatonFromForm();
+
     if (isFormDataValid(automaton)) {
       minimizeDFA();
     } else {
@@ -21,12 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Fungsi untuk meminimalkan DFA
 export function minimizeDFA() {
   let partitions = initialPartition(automaton);
   let newPartitions;
+  let stepCounter = 0;
+  renderEquivalenceStep(partitions, stepCounter);
+
   do {
     newPartitions = refinePartitions(automaton, partitions);
+    stepCounter++;
+    renderEquivalenceStep(newPartitions, stepCounter);
+
     if (JSON.stringify(newPartitions) === JSON.stringify(partitions)) {
       break;
     }
@@ -47,6 +56,44 @@ export function minimizeDFA() {
     buildMinimizedGraphDefinition(minimizedAutomaton, partitions),
     "minimizedGraphDiv"
   );
+}
+
+function renderEquivalenceStep(partitions, step) {
+  const stepsDiv = document.getElementById("equivalenceSteps");
+
+  // Periksa apakah tabel sudah ada, jika tidak, buat tabel baru
+  let table = stepsDiv.querySelector("table");
+  if (!table) {
+    table = document.createElement("table");
+    table.className =
+      "min-w-full divide-y divide-gray-200 shadow overflow-hidden rounded-lg";
+    table.innerHTML = `
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+            Step
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+            Equivalence
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+      </tbody>`;
+    stepsDiv.appendChild(table);
+  }
+
+  // Tambahkan baris baru ke tbody tabel
+  let tbody = table.querySelector("tbody");
+  let row = document.createElement("tr");
+  row.innerHTML = `
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+      ${step}
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      ${partitions.map((partition) => `{${partition.join(",")}}`).join(" ")}
+    </td>`;
+  tbody.appendChild(row);
 }
 
 // initialPartition() akan membagi states menjadi dua bagian: finalStates dan nonFinalStates

@@ -99,7 +99,13 @@ export function buildGraphDefinition({
 // fungsi untuk merender grafik
 export function renderGraph(graphDefinition, targetDiv) {
   const graphDiv = document.getElementById(targetDiv);
-  graphDiv.innerHTML = ""; // Bersihkan grafik sebelumnya
+  graphDiv.innerHTML = "";
+
+  // tambahkan judul grafik sesuai targetDiv
+  const title = document.createElement("h2");
+  title.textContent =
+    targetDiv === "originalGraphDiv" ? "Graph Automata" : "Minimized DFA";
+  graphDiv.appendChild(title);
 
   try {
     const graphContainer = document.createElement("div");
@@ -138,15 +144,15 @@ export function updateAutomatonConfig() {
 
 //  fungsi untuk menghasilkan tabel transisi dalam bentuk HTML
 export function generateTransitionTableHTML(states, alphabet) {
-  let tableHTML = `<table class="divide-y w-full divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
+  let tableHTML = `<table class="divide-y w-full rounded-lg divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
   alphabet.forEach((symbol) => {
     tableHTML += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
   });
   tableHTML += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
   states.forEach((state) => {
-    tableHTML += `<tr><td class="border border-gray-300">${state}</td>`;
+    tableHTML += `<tr><td class="border border-gray-300 px-6 py-3">${state}</td>`;
     alphabet.forEach((symbol) => {
-      tableHTML += `<td class="border border-gray-300"><input id="transition_${state}_${symbol}" type="text" class="w-full border p-2" placeholder="Enter states separated by comma" /></td>`;
+      tableHTML += `<td class="border border-gray-300"><input id="transition_${state}_${symbol}" type="text" class="w-full border px-6 py-3" placeholder="Enter states separated by comma" /></td>`;
     });
     tableHTML += `</tr>`;
   });

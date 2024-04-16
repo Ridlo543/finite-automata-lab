@@ -64,8 +64,9 @@ function resetFormAndGraphs() {
   }
 
   // Mengosongkan div grafik DFA asli dan yang diminimalkan
-  document.getElementById("originalGraphDiv").innerHTML = "";
+  document.getElementById("renderContent").innerHTML = "";
   document.getElementById("minimizedGraphDiv").innerHTML = "";
+  document.getElementById("equivalenceSteps").innerHTML = "";
 
   // Reset automaton properties without reassigning it
   automaton.states = [];
@@ -86,13 +87,17 @@ function resetFormAndGraphs() {
 
 export function isFormDataValid(automaton) {
   // Periksa apakah states, alphabet, initial state, dan final states diisi
-  if (!automaton.states.length || !automaton.alphabet.length ||
-      !automaton.initialState || !automaton.finalStates.length) {
+  if (
+    !automaton.states.length ||
+    !automaton.alphabet.length ||
+    !automaton.initialState ||
+    !automaton.finalStates.length
+  ) {
     return false;
   }
   // Periksa apakah setiap transisi memiliki state tujuan
   for (const transition of automaton.transitions) {
-    if (!transition.nextStates.every(state => state)) {
+    if (!transition.nextStates.every((state) => state)) {
       return false;
     }
   }
