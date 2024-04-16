@@ -2,29 +2,31 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 
+const base = import.meta.env.BASE_URL;
+
 const cards = [
   {
-    href: "/",
+    href: `${base}`,
     title: "Konversi NFA/e-NFA ke DFA",
     body: "Menerima input untuk NFA atau e-NFA dan mengubahnya menjadi DFA yang berkaitan, mempermudah pengelolaan dan analisis otomata.",
   },
   {
-    href: "/",
+    href: `${base}`,
     title: "Generate e-NFA dari Regular Expression",
     body: "Menerima input berupa regular expression dan menghasilkan e-NFA yang berhubungan, mendukung proses desain otomata lebih efisien.",
   },
   {
-    href: "/minimize-dfa",
+    href: `${base}/minimize-dfa`,
     title: "Minimisasi DFA dan Pengujian",
     body: "Menerima input berupa DFA dan mengoptimalisasikannya menjadi bentuk minimal. Pengguna dapat memasukkan string untuk menguji DFA sebelum dan setelah minimisasi.",
   },
   {
-    href: "/",
+    href: `${base}`,
     title: "Equivalensi DFA",
     body: "Menerima input berupa dua buah DFA dan menentukan apakah keduanya ekuivalen, memberikan analisis mendalam tentang kesamaan fungsi otomata.",
   },
   {
-    href: "/",
+    href: `${base}`,
     title: "Pengujian Automata",
     body: "Mengujikan DFA, NFA, e-NFA, atau regular expression dengan memasukkan string untuk mengetahui apakah string tersebut di-accept atau di-reject.",
   },
