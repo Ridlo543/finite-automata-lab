@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+
+const cards = [
+  {
+    href: "/",
+    title: "Konversi NFA/e-NFA ke DFA",
+    body: "Menerima input untuk NFA atau e-NFA dan mengubahnya menjadi DFA yang berkaitan, mempermudah pengelolaan dan analisis otomata.",
+  },
+  {
+    href: "/",
+    title: "Generate e-NFA dari Regular Expression",
+    body: "Menerima input berupa regular expression dan menghasilkan e-NFA yang berhubungan, mendukung proses desain otomata lebih efisien.",
+  },
+  {
+    href: "/minimize-dfa",
+    title: "Minimisasi DFA dan Pengujian",
+    body: "Menerima input berupa DFA dan mengoptimalisasikannya menjadi bentuk minimal. Pengguna dapat memasukkan string untuk menguji DFA sebelum dan setelah minimisasi.",
+  },
+  {
+    href: "/",
+    title: "Equivalensi DFA",
+    body: "Menerima input berupa dua buah DFA dan menentukan apakah keduanya ekuivalen, memberikan analisis mendalam tentang kesamaan fungsi otomata.",
+  },
+  {
+    href: "/",
+    title: "Pengujian Automata",
+    body: "Mengujikan DFA, NFA, e-NFA, atau regular expression dengan memasukkan string untuk mengetahui apakah string tersebut di-accept atau di-reject.",
+  },
+];
+---
+
+<Layout title="Finite Automata Simulator">
+  <main
+    class="container mx-auto h-screen flex justify-center items-center pt-20"
+  >
+    <ul role="list" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+      {
+        cards.map((card, index) => (
+          <Card
+            key={index}
+            href={card.href}
+            title={card.title}
+            body={card.body}
+          />
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

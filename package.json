@@ -1,0 +1,26 @@
+{
+  "name": "finite-automata-tba",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/nunito": "^5.0.18",
+    "astro": "^4.6.1",
+    "mermaid": "^10.9.0",
+    "sass": "^1.75.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "accessible-astro-components": "^2.3.5",
+    "daisyui": "^4.10.2"
+  }
+}

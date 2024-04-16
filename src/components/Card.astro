@@ -1,0 +1,18 @@
+---
+interface Card {
+  title: string;
+  body: string;
+  href: string;
+}
+
+const { href, title, body } = Astro.props as Card;
+---
+
+<div class="bg-white hover:bg-gray-100 px-8 py-6 rounded-lg w-96 shadow-xl">
+  <a href={href}>
+    <div class="">
+      <h2 class="card-title">{title}</h2>
+      <p class="text-sm">{body}</p>
+    </div>
+  </a>
+</div>
