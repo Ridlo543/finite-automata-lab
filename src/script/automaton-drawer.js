@@ -15,29 +15,34 @@ export let automaton = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const dfaForm = document.getElementById("dfaForm");
-  dfaForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    updateAutomatonFromForm();
-    if (isFormDataValid(automaton)) {
-      renderGraph(buildGraphDefinition(automaton), "originalGraphDiv");
-    } else {
-      alert(
-        "Please fill out all form fields correctly before drawing the graph."
-      );
-    }
-  });
-  dfaForm.states.addEventListener("change", createTransitionInputs);
-  dfaForm.alphabet.addEventListener("change", createTransitionInputs);
+  const automataForm = document.getElementById("automataForm");
+  if (automataForm) {
+    automataForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      updateAutomatonFromForm();
+      if (isFormDataValid(automaton)) {
+        renderGraph(buildGraphDefinition(automaton), "graphResult");
+      } else {
+        alert(
+          "Please fill out all form fields correctly before drawing the graph."
+        );
+      }
+    });
+
+    automataForm.states.addEventListener("change", createTransitionInputs);
+    automataForm.alphabet.addEventListener("change", createTransitionInputs);
+  }
 });
 
 // fungsi untuk mengupdate otomata dari form
 export function updateAutomatonFromForm() {
-  const dfaForm = document.getElementById("dfaForm");
-  automaton.states = dfaForm.states.value.split(",").map((s) => s.trim());
-  automaton.alphabet = dfaForm.alphabet.value.split(",").map((s) => s.trim());
-  automaton.initialState = dfaForm.initialState.value.trim();
-  automaton.finalStates = dfaForm.finalState.value
+  const automataForm = document.getElementById("automataForm");
+  automaton.states = automataForm.states.value.split(",").map((s) => s.trim());
+  automaton.alphabet = automataForm.alphabet.value
+    .split(",")
+    .map((s) => s.trim());
+  automaton.initialState = automataForm.initialState.value.trim();
+  automaton.finalStates = automataForm.finalState.value
     .split(",")
     .map((s) => s.trim());
   automaton.transitions = getTransitionsFromForm(
@@ -104,7 +109,7 @@ export function renderGraph(graphDefinition, targetDiv) {
   // tambahkan judul grafik sesuai targetDiv
   const title = document.createElement("h2");
   title.textContent =
-    targetDiv === "originalGraphDiv" ? "Graph Automata" : "Minimized DFA";
+    targetDiv === "graphResult" ? "Graph Automata" : "Minimized DFA";
   graphDiv.appendChild(title);
 
   try {

@@ -64,7 +64,6 @@ function resetFormAndGraphs() {
   }
 
   // Mengosongkan div grafik DFA asli dan yang diminimalkan
-  document.getElementById("renderContent").innerHTML = "";
   document.getElementById("minimizedGraphDiv").innerHTML = "";
   document.getElementById("equivalenceSteps").innerHTML = "";
 

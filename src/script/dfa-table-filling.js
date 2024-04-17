@@ -4,14 +4,16 @@ import { isFormDataValid } from "./util";
 
 document.addEventListener("DOMContentLoaded", () => {
   const tableFillingButton = document.getElementById("tableFillingButton");
-  tableFillingButton.addEventListener("click", () => {
-    updateAutomatonFromForm();
-    if (isFormDataValid(automaton)) {
-      minimizeDFAWithTableFilling();
-    } else {
-      alert("Please fill out all form fields correctly.");
-    }
-  });
+  if (tableFillingButton) {
+    tableFillingButton.addEventListener("click", () => {
+      updateAutomatonFromForm();
+      if (isFormDataValid(automaton)) {
+        minimizeDFAWithTableFilling();
+      } else {
+        alert("Please fill out all form fields correctly.");
+      }
+    });
+  }
 });
 
 function minimizeDFAWithTableFilling() {
@@ -64,11 +66,7 @@ function initializeMarked(states, finalStates) {
 
 function renderTableFillingAlgorithm(marked, states) {
   const equivalenceDiv = document.createElement("div");
-  equivalenceDiv.classList.add(
-    "mb-4",
-    "p-4",
-    "rounded-lg",
-  );
+  equivalenceDiv.classList.add("mb-4", "p-4", "rounded-lg", "overflow-auto");
 
   // Build table headers
   let tableHeaders = states
@@ -102,7 +100,7 @@ function renderTableFillingAlgorithm(marked, states) {
   // Combine table headers and rows
   equivalenceDiv.innerHTML += `
     <h3 class="text-lg font-semibold text-violet-700 mb-2">Equivalence with Table Filling Algorithm</h3>
-    <table class="min-w-full divide-y divide-gray-200 shadow overflow-hidden rounded-lg">
+    <table class="min-w-full overflow-auto divide-y divide-gray-200 shadow  rounded-lg">
       <thead class="bg-gray-50">
         <tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">States</th>${tableHeaders}</tr>
       </thead>

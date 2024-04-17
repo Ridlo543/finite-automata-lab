@@ -10,19 +10,22 @@ export let minimizedAutomaton;
 
 document.addEventListener("DOMContentLoaded", () => {
   const minimizeButton = document.getElementById("minimizeButton");
-  minimizeButton.addEventListener("click", () => {
-    const stepsDiv = document.getElementById("equivalenceSteps");
-    stepsDiv.innerHTML = ""; // Kosongkan div sebelum melakukan pemangkasan ulang
-    updateAutomatonFromForm();
 
-    if (isFormDataValid(automaton)) {
-      minimizeDFA();
-    } else {
-      alert(
-        "Please fill out all form fields correctly before minimizing the graph."
-      );
-    }
-  });
+  if (minimizeButton) {
+    minimizeButton.addEventListener("click", () => {
+      const stepsDiv = document.getElementById("equivalenceSteps");
+      stepsDiv.innerHTML = ""; // Kosongkan div sebelum melakukan pemangkasan ulang
+      updateAutomatonFromForm();
+
+      if (isFormDataValid(automaton)) {
+        minimizeDFA();
+      } else {
+        alert(
+          "Please fill out all form fields correctly before minimizing the graph."
+        );
+      }
+    });
+  }
 });
 
 export function minimizeDFA() {
