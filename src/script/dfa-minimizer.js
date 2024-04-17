@@ -217,7 +217,7 @@ export function buildMinimizedGraphDefinition(minimizedAutomaton, partitions) {
     } else if (minimizedAutomaton.finalStates.includes(state)) {
       mermaidDef += `    ${state}((("${state}")))\n`;
     } else {
-      mermaidDef += `    ${state}(${state})\n`;
+      mermaidDef += `    ${state}((${state}))\n`;
     }
   });
 
