@@ -35,9 +35,12 @@ const cards = [
 
 <Layout title="Finite Automata Simulator">
   <main
-    class="container mx-auto h-screen flex justify-center items-center pt-20"
+    class="container mx-auto min-h-screen flex flex-col justify-center items-center pt-24 pb-4"
   >
-    <ul role="list" class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+    <ul
+      role="list"
+      class="w-full flex flex-wrap justify-center gap-x-4 gap-y-4 p-4"
+    >
       {
         cards.map((card, index) => (
           <Card
