@@ -67,7 +67,6 @@ export function getTransitionsFromForm(states, alphabet) {
   return transitions;
 }
 
-// fungsi untuk membangun definisi grafik
 export function buildGraphDefinition({
   states,
   transitions,
@@ -77,6 +76,7 @@ export function buildGraphDefinition({
   let mermaidDef = "graph LR\n";
   mermaidDef += `    start --> ${initialState}\n`;
 
+  // Define transitions
   transitions.forEach(({ state, symbol, nextStates }) => {
     nextStates.forEach((nextState) => {
       if (nextState) {
@@ -85,16 +85,17 @@ export function buildGraphDefinition({
     });
   });
 
+  // Define states appearance
   states.forEach((state) => {
     if (initialState === state) {
-      // Initial state with a single circle (already has an arrow pointing to it)
-      mermaidDef += `    ${state}(${state})\n`;
+      // Initial state with a single circle
+      mermaidDef += `    ${state}(("${state}"))\n`;
     } else if (finalStates.includes(state)) {
       // Final state with a double circle
-      mermaidDef += `    ${state}((("${state}")))\n`;
+      mermaidDef += `    ${state}(((${state})))\n`;
     } else {
       // Regular state with a single circle
-      mermaidDef += `    ${state}(${state})\n`;
+      mermaidDef += `    ${state}((${state}))\n`;
     }
   });
 

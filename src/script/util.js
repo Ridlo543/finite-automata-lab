@@ -64,8 +64,22 @@ function resetFormAndGraphs() {
   }
 
   // Mengosongkan div grafik DFA asli dan yang diminimalkan
-  document.getElementById("minimizedGraphDiv").innerHTML = "";
-  document.getElementById("equivalenceSteps").innerHTML = "";
+  const graphResult = document.getElementById("graphResult");
+  if (graphResult) {
+    graphResult.innerHTML = "";
+  }
+  const minimizedGraphDiv = document.getElementById("minimizedGraphDiv");
+  if (minimizedGraphDiv) {
+    minimizedGraphDiv.innerHTML = "";
+  }
+  const equivalenceSteps = document.getElementById("equivalenceSteps");
+  if (equivalenceSteps) {
+    equivalenceSteps.innerHTML = "";
+  }
+  const tableFillingSteps = document.getElementById("tableFillingSteps");
+  if (tableFillingSteps) {
+    tableFillingSteps.innerHTML = "";
+  }
 
   // Reset automaton properties without reassigning it
   automaton.states = [];
