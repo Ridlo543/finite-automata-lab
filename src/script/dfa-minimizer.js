@@ -223,3 +223,4 @@ export function buildMinimizedGraphDefinition(minimizedAutomaton, partitions) {
 
   return mermaidDef;
 }
+
