@@ -1,0 +1,195 @@
+---
+// automaton-test.astro
+import Layout from "src/layouts/Layout.astro";
+---
+
+<Layout title="Test Automata">
+  <main class="container mx-auto my-4 pt-8">
+    <h1 class="text-4xl font-bold text-center mt-16 mb-6">Automata Test</h1>
+    <div class="flex justify-center space-x-4">
+      <button
+        id="btnDFA"
+        data-automaton-type="dfa"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">DFA</button
+      >
+      <button
+        id="btnNFA"
+        data-automaton-type="nfa"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">NFA</button
+      >
+      <button
+        id="btnENFA"
+        data-automaton-type="enfa"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">E-NFA</button
+      >
+      <button
+        id="btnRegex"
+        data-automaton-type="regex"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">Regex</button
+      >
+    </div>
+    <div id="formDFA" class="hidden space-y-4">
+      <h2>Deterministic Finite Automaton (DFA)</h2>
+
+      <label for="dfaStates" class="block mb-2">States (comma-separated):</label
+      >
+      <input id="dfaStates" type="text" class="rounded-md border p-2" />
+
+      <label for="dfaAlphabet" class="block mb-2"
+        >Alphabet (comma-separated):</label
+      >
+      <input id="dfaAlphabet" type="text" class="rounded-md border p-2" />
+
+      <label for="dfaInitialState" class="block mb-2">Initial State:</label>
+      <input id="dfaInitialState" type="text" class="rounded-md border p-2" />
+
+      <label for="dfaFinalStates" class="block mb-2"
+        >Final States (comma-separated):</label
+      >
+      <input id="dfaFinalStates" type="text" class="rounded-md border p-2" />
+
+      <!-- Transition Table will be dynamically generated based on states and alphabet -->
+      <div id="dfaTransitionsDiv" class="space-y-2"></div>
+
+      <label for="dfaInput" class="block mb-2">Test String:</label>
+      <input
+        id="dfaInput"
+        type="text"
+        placeholder="Enter test string"
+        class="rounded-md border p-2"
+      />
+      <button
+        id="dfaTestButton"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+      >
+      <div id="dfaResult"></div>
+    </div>
+
+    <div id="formNFA" class="hidden space-y-4">
+      <label for="nfaStates" class="block mb-2">States (comma-separated):</label
+      >
+      <input id="nfaStates" type="text" class="rounded-md border p-2" />
+
+      <label for="nfaAlphabet" class="block mb-2"
+        >Alphabet (comma-separated):</label
+      >
+      <input id="nfaAlphabet" type="text" class="rounded-md border p-2" />
+
+      <label for="nfaInitialState" class="block mb-2">Initial State:</label>
+      <input id="nfaInitialState" type="text" class="rounded-md border p-2" />
+
+      <label for="nfaFinalStates" class="block mb-2"
+        >Final States (comma-separated):</label
+      >
+      <input id="nfaFinalStates" type="text" class="rounded-md border p-2" />
+
+      <!-- Transition Table will be dynamically generated based on states and alphabet -->
+      <div id="nfaTransitionsDiv" class="space-y-2"></div>
+
+      <label for="nfaTestString" class="block mb-2">Test String:</label>
+      <input
+        id="nfaInput"
+        type="text"
+        placeholder="Enter test string"
+        class="rounded-md border p-2"
+      />
+      <button
+        id="nfaTestButton"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+      >
+      <div id="nfaResult"></div>
+    </div>
+
+    <div id="formENFA" class="hidden space-y-4">
+      <label for="enfaStates" class="block mb-2"
+        >States (comma-separated):</label
+      >
+      <input id="enfaStates" type="text" class="rounded-md border p-2" />
+
+      <label for="enfaAlphabet" class="block mb-2"
+        >Alphabet (comma-separated, include ε for epsilon):</label
+      >
+      <input id="enfaAlphabet" type="text" class="rounded-md border p-2" />
+
+      <label for="enfaInitialState" class="block mb-2">Initial State:</label>
+      <input id="enfaInitialState" type="text" class="rounded-md border p-2" />
+
+      <label for="enfaFinalStates" class="block mb-2"
+        >Final States (comma-separated):</label
+      >
+
+      <input id="enfaFinalStates" type="text" class="rounded-md border p-2" />
+
+      <!-- Transition Table will be dynamically generated based on states and alphabet -->
+      <div id="enfaTransitionsDiv" class="space-y-2"></div>
+
+      <label for="enfaInput" class="block mb-2">Test String:</label>
+      <input
+        id="enfaInput"
+        type="text"
+        placeholder="Enter test string"
+        class="rounded-md border p-2"
+      />
+      <button
+        id="enfaTestButton"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+      >
+      <div id="enfaResult"></div>
+    </div>
+
+    <div id="formRegex" class="space-y-4">
+      <label for="regexPattern" class="block mb-2">Regex Pattern:</label>
+      <input
+        id="regexPattern"
+        type="text"
+        placeholder="Enter regex pattern"
+        class="rounded-md border p-2"
+      />
+
+      <label for="regexInput" class="block mb-2">Test String:</label>
+      <input
+        id="regexInput"
+        type="text"
+        placeholder="Enter test string"
+        class="rounded-md border p-2"
+      />
+
+      <button
+        id="regexTestButton"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test Regex</button
+      >
+      <div id="regexResult"></div>
+    </div>
+
+    <!-- script -->
+    <script>
+      document.getElementById("btnDFA").addEventListener("click", function () {
+        showForm("formDFA");
+      });
+      document.getElementById("btnNFA").addEventListener("click", function () {
+        showForm("formNFA");
+      });
+      document.getElementById("btnENFA").addEventListener("click", function () {
+        showForm("formENFA");
+      });
+      document
+        .getElementById("btnRegex")
+        .addEventListener("click", function () {
+          showForm("formRegex");
+        });
+
+      function showForm(formId) {
+        const forms = ["formDFA", "formNFA", "formENFA", "formRegex"];
+        forms.forEach((f) =>
+          document.getElementById(f).classList.add("hidden")
+        );
+        document.getElementById(formId).classList.remove("hidden");
+      }
+    </script>
+    <script src="../script/_5-automaton-test/form-handler-test.js"></script>
+    <script src="../script/_5-automaton-test/nfa-test.js"></script>
+    <script src="../script/_5-automaton-test/dfa-test.js"></script>
+    <script src="../script/_5-automaton-test/enfa-test.js"></script>
+    <script src="../script/_5-automaton-test/regex-test.js"></script>
+  </main>
+</Layout>

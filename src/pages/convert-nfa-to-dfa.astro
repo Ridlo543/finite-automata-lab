@@ -41,51 +41,22 @@ import Layout from "src/layouts/Layout.astro";
           <div id="transitionsDiv" class="space-y-2">
             <!-- Transitions will be inserted here by JS -->
           </div>
-          <div class="flex gap-4 justify-between">
-            <div>
-              <button
-                type="submit"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Draw Graph</button
-              >
-              <button
-                id="convertDfaButton"
-                type="submit"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Convert to DFA</button
-              >
-            </div>
-            <div>
-              <button
-                id="exampleButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Example</button
-              >
-              <button
-                id="resetButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Reset</button
-              >
-            </div>
-          </div>
+
+          <!-- button convert -->
+          <button
+            type="button"
+            id="convertButton"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >Convert to DFA
+          </button>
         </form>
       </div>
-    </div>
+      <div id="dfaTransitions"></div>
 
-    <!-- GRAPH CONTENT -->
-    <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
-      <div class="w-full sm:w-1/2 text-center justify-center items-center">
-        <div id="graphResult" class="mt-8"></div>
-      </div>
-      <div class="w-full sm:w-1/2 text-center justify-center items-center">
-        <div id="convertResult" class="mt-8"></div>
-      </div>
+      <!-- GRAPH CONTENT -->
     </div>
+    <script src="../script/automaton-drawer.js"></script>
+    <script src="../script/_1-convert-nfa-enfa-to-dfa/nfa-to-dfa.js"></script>
+    <script src="../script/util.js"></script>
   </main>
-
-  <script src="../script/automaton-drawer.js"></script>
-  <script src="../script/nfa-to-dfa.js"></script>
-  <script src="../script/util.js"></script>
 </Layout>

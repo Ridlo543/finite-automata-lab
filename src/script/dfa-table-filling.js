@@ -1,4 +1,5 @@
-import { automaton, updateAutomatonFromForm } from "./automaton-drawer";
+import { updateAutomatonFromForm } from "./form-handler";
+import { automaton } from "./automaton-drawer";
 import { getNextState } from "./dfa-minimizer";
 import { isFormDataValid } from "./util";
 

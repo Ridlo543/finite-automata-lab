@@ -1,20 +1,22 @@
 ---
 interface Card {
   title: string;
-  body: string;
+  body?: string;
   href: string;
 }
 
 const { href, title, body } = Astro.props as Card;
 ---
 
-<div
-  class="bg-white hover:bg-gray-100 p-6 rounded-lg shadow-lg md:w-96 w-full transition-all duration-300"
->
-  <a data-astro-reload href={href}>
+<div>
+  <a
+    data-astro-reload
+    href={href}
+    class="bg-white hover:bg-gray-100 flex items-center justify-center p-6 rounded-lg shadow-lg min-h-32 md:w-96 w-full transition-all duration-300"
+  >
     <div>
       <h2 class="text-lg font-semibold">{title}</h2>
-      <p class="text-sm">{body}</p>
+      <!-- <p class="text-sm">{body}</p> -->
     </div>
   </a>
 </div>

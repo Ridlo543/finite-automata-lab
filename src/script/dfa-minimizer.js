@@ -1,9 +1,9 @@
 // dfa-minimizer.js
 import {
-  updateAutomatonFromForm,
   renderGraph,
   automaton,
 } from "./automaton-drawer";
+import { updateAutomatonFromForm } from "./form-handler";
 import { isFormDataValid } from "./util";
 
 export let minimizedAutomaton;

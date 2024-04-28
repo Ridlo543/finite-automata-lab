@@ -1,15 +1,16 @@
-import {
-  updateAutomatonConfig,
-  createTransitionInputs,
-  automaton,
-} from "./automaton-drawer";
+// util.js
+import { automaton } from "./automaton-drawer";
+import { updateAutomatonConfig, createTransitionInputs } from "./form-handler";
 import { minimizedAutomaton } from "./dfa-minimizer";
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!document.getElementById("exampleButton")) return;
+
   document
     .getElementById("exampleButton")
     .addEventListener("click", fillExampleData);
 
+  if (!document.getElementById("resetButton")) return;
   document
     .getElementById("resetButton")
     .addEventListener("click", resetFormAndGraphs);

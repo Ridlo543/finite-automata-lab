@@ -26,7 +26,7 @@ const cards = [
     body: "Menerima input berupa dua buah DFA dan menentukan apakah keduanya ekuivalen, memberikan analisis mendalam tentang kesamaan fungsi otomata.",
   },
   {
-    href: `${base}`,
+    href: `${base}/automata-test`,
     title: "Pengujian Automata",
     body: "Mengujikan DFA, NFA, e-NFA, atau regular expression dengan memasukkan string untuk mengetahui apakah string tersebut di-accept atau di-reject.",
   },
@@ -47,7 +47,6 @@ const cards = [
             key={index}
             href={card.href}
             title={card.title}
-            body={card.body}
           />
         ))
       }
