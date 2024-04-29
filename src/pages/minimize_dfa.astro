@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Minimize DFA">
   <main class="container mx-auto my-4 pt-8">
     <h1 class="text-4xl font-bold text-center mt-16 mb-6">Minimize DFA</h1>
-    <div class="bg-white p-6 rounded shadow">
+    <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow">
       <!-- INPUT CONTENT -->
       <div class="px-8 py-8">
         <form id="automataForm" class="space-y-4">
@@ -79,39 +79,42 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
 
-    <div class="flex flex-row">
-      <div class="w-full sm:w-1/2 mx-auto mt-8">
-        <label for="testStringOriginal"> Test input for original DFA: </label>
+    <div class="flex flex-col md:flex-row">
+      <div class="mx-auto mt-8 ">
+        <label for="testStringOriginal">Test input for original DFA:</label>
         <input
           id="testStringOriginal"
           type="text"
           placeholder="Enter test string"
-          class="rounded-md border p-2"
+          class="border rounded-md p-2"
         />
         <button
           id="testButtonOriginal"
-          class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-          >Test Original</button
+          class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
         >
+          Test Original
+        </button>
         <div id="resultOriginal"></div>
       </div>
 
-      <div class="w-full sm:w-1/2 mx-auto mt-8">
+      <div class="mx-auto mt-8 ">
         <label for="testStringMinimized">Test input for minimized DFA:</label>
         <input
           id="testStringMinimized"
           type="text"
           placeholder="Enter test string"
-          class="rounded-md border p-2"
+          class="border rounded-md p-2"
         />
         <button
           id="testButtonMinimized"
-          class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-          >Test Minimized</button
+          class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
         >
+          Test Minimized
+        </button>
         <div id="resultMinimized"></div>
       </div>
     </div>
+
     <!-- GRAPH CONTENT -->
     <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
       <div class="w-full sm:w-1/2 text-center justify-center items-center">
