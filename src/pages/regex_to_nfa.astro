@@ -1,0 +1,37 @@
+---
+import Layout from "src/layouts/Layout.astro";
+---
+
+<Layout title="Regex to NFA">
+  <main class="container mx-auto my-4 pt-8">
+    <h1 class="text-4xl font-bold text-center mt-16 mb-6">Regex to NFA</h1>
+    <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow">
+      <!-- INPUT CONTENT -->
+      <div class="px-8 py-8">
+        <form id="formRegex" class="space-y-4">
+          <label for="regexPattern" class="block mb-2">Regex Pattern:</label>
+          <input
+            id="regexPattern"
+            type="text"
+            placeholder="Enter regex pattern"
+            class="bg-white rounded-md border p-2"
+          />
+
+          <button
+            id="convertRegex"
+            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            >Convert Regex</button
+          >
+        </form>
+      </div>
+    </div>
+    <!-- NFA transition table & initial, final state -->
+    <div id="nfaResult" class="pb-8 mb-8"></div>
+    <!-- graph NFA -->
+    <div class="flex w-full text-center justify-center items-center">
+        <div id="graphRegexNFA" class="mb-8"></div>
+      </div>
+  </main>
+
+  <script src="../script/_2-regex-to-nfa/regex-to-nfa.js"></script>
+</Layout>

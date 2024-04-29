@@ -1,0 +1,161 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Minimize DFA">
+  <main class="container mx-auto my-4 pt-8">
+    <h1 class="text-4xl font-bold text-center mt-16 mb-6">
+      Equivalence DFA Check
+    </h1>
+    <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow mb-4">
+      <!-- INPUT CONTENT DFA 1-->
+      <div class="px-8 py-8">
+        <form id="automataForm" class="automataForm space-y-4">
+          <div>
+            <label for="states" class="block mb-2"
+              >States (comma-separated):</label
+            >
+            <input id="states" type="text" class="rounded-md border p-2" />
+          </div>
+          <div>
+            <label for="alphabet" class="block mb-2"
+              >Alphabet (comma-separated):</label
+            >
+            <input id="alphabet" type="text" class="rounded-md border p-2" />
+          </div>
+          <div>
+            <label for="initialState" class="block mb-2">Initial State:</label>
+            <input
+              id="initialState"
+              type="text"
+              class="rounded-md border p-2"
+            />
+          </div>
+          <div>
+            <label for="finalState" class="block mb-2"
+              >Final States (comma-separated):</label
+            >
+            <input id="finalState" type="text" class="rounded-md border p-2" />
+          </div>
+          <div id="transitionsDiv" class="space-y-2">
+            <!-- Transitions will be inserted here by JS -->
+          </div>
+          <div class="flex gap-4 justify-between">
+            <div>
+              <button
+                id="drawGraphButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Draw Graph</button
+              >
+              <button
+                id="minimizeButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Minimize DFA</button
+              >
+              <button
+                id="tableFillingButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+              >
+                Minimize DFA (Table Filling)
+              </button>
+            </div>
+            <div>
+              <button
+                id="exampleButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Example</button
+              >
+              <button
+                id="resetButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Reset</button
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow">
+      <!-- INPUT CONTENT DFA 2 -->
+      <div class="px-8 py-8">
+        <form id="dfaForm2" class="automataForm space-y-4">
+          <div>
+            <label for="states" class="block mb-2"
+              >States (comma-separated):</label
+            >
+            <input id="states" type="text" class="rounded-md border p-2" />
+          </div>
+          <div>
+            <label for="alphabet" class="block mb-2"
+              >Alphabet (comma-separated):</label
+            >
+            <input id="alphabet" type="text" class="rounded-md border p-2" />
+          </div>
+          <div>
+            <label for="initialState" class="block mb-2">Initial State:</label>
+            <input
+              id="initialState"
+              type="text"
+              class="rounded-md border p-2"
+            />
+          </div>
+          <div>
+            <label for="finalState" class="block mb-2"
+              >Final States (comma-separated):</label
+            >
+            <input id="finalState" type="text" class="rounded-md border p-2" />
+          </div>
+          <!-- <div id="transitionsDiv" class="space-y-2"> -->
+            <!-- Transitions will be inserted here by JS -->
+          </div>
+          <div class="flex gap-4 justify-between">
+            <div>
+              <button
+                id="drawGraphButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Draw Graph</button
+              >
+              <button
+                id="minimizeButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Minimize DFA</button
+              >
+              <button
+                id="tableFillingButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+              >
+                Minimize DFA (Table Filling)
+              </button>
+            </div>
+            <div>
+              <button
+                id="exampleButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Example</button
+              >
+              <button
+                id="resetButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Reset</button
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="../script/form-handler.js"></script>
+  
+  <script src="../script/automaton-drawer.js"></script>
+  <script src="../script/util.js"></script>
+</Layout>

@@ -76,6 +76,11 @@ export function buildGraphDefinition(automaton) {
 // fungsi untuk merender grafik
 export function renderGraph(graphDefinition, targetDiv) {
   const graphDiv = document.getElementById(targetDiv);
+  if (!graphDiv) {
+    console.error("The graph container does not exist:", targetDiv);
+    return;
+  }
+
   graphDiv.innerHTML = "";
 
   // tambahkan judul grafik sesuai targetDiv
