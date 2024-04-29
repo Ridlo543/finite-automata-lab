@@ -4,31 +4,31 @@ import Layout from "src/layouts/Layout.astro";
 ---
 
 <Layout title="Test Automata">
-  <main class="container mx-auto my-4 pt-8">
+  <main class="container mx-auto my-4 py-8">
     <h1 class="text-4xl font-bold text-center mt-16 mb-6">Automata Test</h1>
-    <div class="flex justify-center space-x-4">
+    <div class="flex justify-center space-x-4 mb-8">
       <button
         id="btnDFA"
         data-automaton-type="dfa"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">DFA</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">DFA</button
       >
       <button
         id="btnNFA"
         data-automaton-type="nfa"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">NFA</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">NFA</button
       >
       <button
         id="btnENFA"
         data-automaton-type="enfa"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">E-NFA</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">E-NFA</button
       >
       <button
         id="btnRegex"
         data-automaton-type="regex"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">Regex</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">Regex</button
       >
     </div>
-    <div id="formDFA" class="hidden space-y-4">
+    <div id="formDFA" class="space-y-4 mx-2">
       <h2>Deterministic Finite Automaton (DFA)</h2>
 
       <label for="dfaStates" class="block mb-2">States (comma-separated):</label
@@ -60,12 +60,12 @@ import Layout from "src/layouts/Layout.astro";
       />
       <button
         id="dfaTestButton"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">Test String</button
       >
       <div id="dfaResult"></div>
     </div>
 
-    <div id="formNFA" class="hidden space-y-4">
+    <div id="formNFA" class="hidden space-y-4 mx-2">
       <label for="nfaStates" class="block mb-2">States (comma-separated):</label
       >
       <input id="nfaStates" type="text" class="rounded-md border p-2" />
@@ -95,12 +95,12 @@ import Layout from "src/layouts/Layout.astro";
       />
       <button
         id="nfaTestButton"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">Test String</button
       >
       <div id="nfaResult"></div>
     </div>
 
-    <div id="formENFA" class="hidden space-y-4">
+    <div id="formENFA" class="hidden space-y-4 mx-2">
       <label for="enfaStates" class="block mb-2"
         >States (comma-separated):</label
       >
@@ -132,12 +132,12 @@ import Layout from "src/layouts/Layout.astro";
       />
       <button
         id="enfaTestButton"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test String</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">Test String</button
       >
       <div id="enfaResult"></div>
     </div>
 
-    <div id="formRegex" class="space-y-4">
+    <div id="formRegex" class="hidden space-y-4 mx-2">
       <label for="regexPattern" class="block mb-2">Regex Pattern:</label>
       <input
         id="regexPattern"
@@ -156,9 +156,10 @@ import Layout from "src/layouts/Layout.astro";
 
       <button
         id="regexTestButton"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md">Test Regex</button
+        class="px-4 py-2 bg-violet-800 text-white rounded-md">Test Regex</button
       >
-      <div id="regexResult"></div>
+      <div id="regexResult" class="mb-8"
+      ></div>
     </div>
 
     <!-- script -->
