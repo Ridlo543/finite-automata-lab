@@ -1,7 +1,10 @@
 // automaton-drawer.js
-import { updateAutomatonFromForm, createTransitionInputs } from "./form-handler";
+import {
+  updateAutomatonFromForm,
+  createTransitionInputs,
+} from "./form-handler";
 import mermaid from "mermaid";
-import { isFormDataValid } from "./util";
+import { convertTransition, isFormDataValid } from "./util";
 
 mermaid.initialize({
   startOnLoad: true,
@@ -17,11 +20,14 @@ export let automaton = {
 
 document.addEventListener("DOMContentLoaded", () => {
   const automataForm = document.getElementById("automataForm");
-  if (automataForm) {
-    automataForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+  const drawGraphButton = document.getElementById("drawGraphButton");
+
+  if (drawGraphButton) {
+    drawGraphButton.addEventListener("click", () => {
       updateAutomatonFromForm();
       if (isFormDataValid(automaton)) {
+        console.log("Automaton: ", automaton);
+        console.log("Transisi Automaton: ", convertTransition(automaton));
         renderGraph(buildGraphDefinition(automaton), "graphResult");
       } else {
         alert(
@@ -29,19 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
     });
-
+  }
+  if (automataForm) {
     automataForm.states.addEventListener("change", createTransitionInputs);
     automataForm.alphabet.addEventListener("change", createTransitionInputs);
   }
 });
 
-
-export function buildGraphDefinition({
-  states,
-  transitions,
-  initialState,
-  finalStates,
-}) {
+export function buildGraphDefinition(automaton) {
+  const { states, transitions, initialState, finalStates } = automaton;
   let mermaidDef = "graph LR\n";
   mermaidDef += `    start --> ${initialState}\n`;
 
@@ -79,7 +81,7 @@ export function renderGraph(graphDefinition, targetDiv) {
   // tambahkan judul grafik sesuai targetDiv
   const title = document.createElement("h2");
   title.textContent =
-    targetDiv === "graphResult" ? "Graph Automata" : "Minimized DFA";
+    targetDiv === "graphResult" ? "Graph Automata" : targetDiv;
   graphDiv.appendChild(title);
 
   try {
@@ -92,4 +94,3 @@ export function renderGraph(graphDefinition, targetDiv) {
     graphDiv.textContent = "Error drawing the graph: " + error.message;
   }
 }
-

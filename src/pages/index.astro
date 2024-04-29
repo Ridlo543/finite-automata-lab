@@ -6,27 +6,27 @@ const base = import.meta.env.BASE_URL;
 
 const cards = [
   {
-    href: `${base}/convert-nfa-to-dfa`,
+    href: `${base}/convert_nfa_to_dfa`,
     title: "Konversi NFA/e-NFA ke DFA",
     body: "Menerima input untuk NFA atau e-NFA dan mengubahnya menjadi DFA yang berkaitan, mempermudah pengelolaan dan analisis otomata.",
   },
   {
-    href: `${base}`,
+    href: `${base}/regex_to_nfa`,
     title: "Generate e-NFA dari Regular Expression",
     body: "Menerima input berupa regular expression dan menghasilkan e-NFA yang berhubungan, mendukung proses desain otomata lebih efisien.",
   },
   {
-    href: `${base}/minimize-dfa`,
+    href: `${base}/minimize_dfa`,
     title: "Minimisasi DFA dan Pengujian",
     body: "Menerima input berupa DFA dan mengoptimalisasikannya menjadi bentuk minimal. Pengguna dapat memasukkan string untuk menguji DFA sebelum dan setelah minimisasi.",
   },
   {
-    href: `${base}`,
+    href: `${base}/dfa_equivalence`,
     title: "Equivalensi DFA",
     body: "Menerima input berupa dua buah DFA dan menentukan apakah keduanya ekuivalen, memberikan analisis mendalam tentang kesamaan fungsi otomata.",
   },
   {
-    href: `${base}/automata-test`,
+    href: `${base}/automata_test`,
     title: "Pengujian Automata",
     body: "Mengujikan DFA, NFA, e-NFA, atau regular expression dengan memasukkan string untuk mengetahui apakah string tersebut di-accept atau di-reject.",
   },

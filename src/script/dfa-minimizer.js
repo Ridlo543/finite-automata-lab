@@ -1,10 +1,8 @@
 // dfa-minimizer.js
-import {
-  renderGraph,
-  automaton,
-} from "./automaton-drawer";
+import { renderGraph, automaton } from "./automaton-drawer";
 import { updateAutomatonFromForm } from "./form-handler";
 import { isFormDataValid } from "./util";
+import { convertTransition } from "./util";
 
 export let minimizedAutomaton;
 
@@ -14,10 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (minimizeButton) {
     minimizeButton.addEventListener("click", () => {
       const stepsDiv = document.getElementById("equivalenceSteps");
-      stepsDiv.innerHTML = ""; // Kosongkan div sebelum melakukan pemangkasan ulang
+      stepsDiv.innerHTML = "";
       updateAutomatonFromForm();
 
       if (isFormDataValid(automaton)) {
+        const transitionConverted = convertTransition(automaton);
+        console.log("Converted Transition Object:", transitionConverted);
+
         minimizeDFA();
       } else {
         alert(
@@ -57,7 +58,7 @@ export function minimizeDFA() {
 
   renderGraph(
     buildMinimizedGraphDefinition(minimizedAutomaton, partitions),
-    "minimizedGraphDiv"
+    "minimizedGraph"
   );
 }
 
@@ -223,4 +224,3 @@ export function buildMinimizedGraphDefinition(minimizedAutomaton, partitions) {
 
   return mermaidDef;
 }
-

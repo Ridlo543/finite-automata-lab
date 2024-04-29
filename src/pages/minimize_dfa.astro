@@ -41,7 +41,8 @@ import Layout from "../layouts/Layout.astro";
           <div class="flex gap-4 justify-between">
             <div>
               <button
-                type="submit"
+                id="drawGraphButton"
+                type="button"
                 class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
                 >Draw Graph</button
               >
@@ -117,7 +118,7 @@ import Layout from "../layouts/Layout.astro";
         <div id="graphResult" class="mt-8"></div>
       </div>
       <div class="w-full sm:w-1/2 text-center justify-center items-center">
-        <div id="minimizedGraphDiv" class="mt-8"></div>
+        <div id="minimizedGraph" class="mt-8"></div>
       </div>
     </div>
     <div id="equivalenceSteps" class="mt-8 p-4"></div>

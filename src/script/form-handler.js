@@ -54,7 +54,7 @@ export function updateAutomatonConfig() {
 export function generateTransitionTableHTML(states, alphabet) {
   let tableHTML = `<table class="divide-y w-full rounded-lg divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
   alphabet.forEach((symbol) => {
-    tableHTML += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
+    tableHTML += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
   });
   tableHTML += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
   states.forEach((state) => {

@@ -11,6 +11,7 @@ import Layout from "src/layouts/Layout.astro";
     <div class="bg-white p-6 rounded shadow">
       <!-- INPUT CONTENT -->
       <div class="px-8 py-8">
+        <h2 class="text-2xl font-bold mb-4">Input NFA/ε-NFA</h2>
         <form id="automataForm" class="space-y-4">
           <div>
             <label for="states" class="block mb-2"
@@ -20,7 +21,7 @@ import Layout from "src/layouts/Layout.astro";
           </div>
           <div>
             <label for="alphabet" class="block mb-2"
-              >Alphabet (comma-separated):</label
+              >Alphabet (comma-separated) (ε : eps):</label
             >
             <input id="alphabet" type="text" class="rounded-md border p-2" />
           </div>
@@ -41,20 +42,52 @@ import Layout from "src/layouts/Layout.astro";
           <div id="transitionsDiv" class="space-y-2">
             <!-- Transitions will be inserted here by JS -->
           </div>
-
-          <!-- button convert -->
-          <button
-            type="button"
-            id="convertButton"
-            class="bg-blue-500 text-white px-4 py-2 rounded-md"
-            >Convert to DFA
-          </button>
+          <div class="flex gap-4 justify-between">
+            <div>
+              <button
+                id="drawGraphButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Draw Graph</button
+              >
+              <button
+                id="convertButtonToDFA"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Convert to DFA</button
+              >
+            </div>
+            <div>
+              <button
+                id="exampleButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Example</button
+              >
+              <button
+                id="resetButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Reset</button
+              >
+            </div>
+          </div>
         </form>
       </div>
       <div id="dfaTransitions"></div>
 
       <!-- GRAPH CONTENT -->
+      <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
+        <div class="w-full sm:w-1/2 text-center justify-center items-center">
+          <div id="graphResult" class="mt-8"></div>
+        </div>
+        <div class="w-full sm:w-1/2 text-center justify-center items-center">
+          <div id="graphDfa" class="mt-8"></div>
+        </div>
+      </div>
+      <div id="dfaTable"></div>
     </div>
+
     <script src="../script/automaton-drawer.js"></script>
     <script src="../script/_1-convert-nfa-enfa-to-dfa/nfa-to-dfa.js"></script>
     <script src="../script/util.js"></script>

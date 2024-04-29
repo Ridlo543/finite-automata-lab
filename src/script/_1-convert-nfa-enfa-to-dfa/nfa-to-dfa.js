@@ -1,145 +1,145 @@
-document.getElementById("convertButton").addEventListener("click", () => {
-  const nfa = getAutomatonFromForm();
-  const dfa = convertNFAtoDFA(nfa);
-  displayDFA(dfa); // Fungsi untuk menampilkan DFA yang perlu Anda implementasikan
+import { automaton, renderGraph } from "../automaton-drawer";
+import { updateAutomatonFromForm } from "../form-handler";
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("convertButtonToDFA")
+    .addEventListener("click", () => {
+      updateAutomatonFromForm();
+      console.log("Updated Automaton:", automaton);
+      convertNFAtoDFA();
+    });
 });
 
-function getAutomatonFromForm() {
-  let automaton = {
-    states: document
-      .getElementById("states")
-      .value.split(",")
-      .map((s) => s.trim()),
-    alphabet: document
-      .getElementById("alphabet")
-      .value.split(",")
-      .map((s) => s.trim()),
-    startState: document.getElementById("initialState").value.trim(),
-    acceptStates: document
-      .getElementById("finalState")
-      .value.split(",")
-      .map((s) => s.trim()),
-    transitions: {},
-  };
+function epsilonClosure(baseStates, transitionMap) {
+  let closure = new Set(baseStates);
+  let stack = Array.from(baseStates);
 
-  automaton.states.forEach((state) => {
-    automaton.transitions[state] = {};
-    automaton.alphabet.forEach((symbol) => {
-      let transitionId = `transition_${state}_${symbol}`;
-      let transitionInput = document.getElementById(transitionId);
-      automaton.transitions[state][symbol] = transitionInput
-        ? transitionInput.value.split(",").map((s) => s.trim())
-        : [];
-    });
-
-    let epsilonTransitionId = `transition_${state}_ε`;
-    let epsilonTransitionInput = document.getElementById(epsilonTransitionId);
-    automaton.transitions[state]["ϵ"] = epsilonTransitionInput
-      ? epsilonTransitionInput.value.split(",").map((s) => s.trim())
-      : [];
-  });
-
-  return automaton;
-}
-
-function convertNFAtoDFA(nfa) {
-  let dfa = {
-    states: [],
-    alphabet: nfa.alphabet.filter((symbol) => symbol !== "ϵ"), // Exclude 'ϵ' from DFA alphabet
-    transitions: {},
-    startState: epsilonClosure(nfa.startState, nfa.transitions).join("-"),
-    acceptStates: [],
-  };
-
-  let queue = [dfa.startState];
-  let visited = new Set();
-
-  while (queue.length > 0) {
-    let currentState = queue.shift();
-    if (!visited.has(currentState)) {
-      visited.add(currentState);
-      let stateParts = currentState.split("-");
-
-      dfa.states.push(currentState);
-      if (stateParts.some((part) => nfa.acceptStates.includes(part))) {
-        dfa.acceptStates.push(currentState);
+  while (stack.length > 0) {
+    const currentState = stack.pop();
+    const epsilonTransitions = transitionMap[currentState]?.eps || [];
+    epsilonTransitions.forEach((nextState) => {
+      if (!closure.has(nextState)) {
+        closure.add(nextState);
+        stack.push(nextState);
       }
-
-      dfa.transitions[currentState] = {};
-      nfa.alphabet.forEach((symbol) => {
-        if (symbol !== "ϵ") {
-          let nextStates = new Set();
-          stateParts.forEach((part) => {
-            let transitions = nfa.transitions[part][symbol];
-            if (transitions) {
-              transitions.forEach((nextState) => {
-                epsilonClosure(nextState, nfa.transitions).forEach(
-                  (closureState) => {
-                    nextStates.add(closureState);
-                  }
-                );
-              });
-            }
-          });
-
-          let nextStateStr = Array.from(nextStates).sort().join("-");
-          dfa.transitions[currentState][symbol] = nextStateStr;
-          if (nextStateStr && !visited.has(nextStateStr)) {
-            queue.push(nextStateStr);
-          }
-        }
-      });
-    }
-  }
-
-  return dfa;
-}
-
-function epsilonClosure(state, transitions) {
-  let closure = new Set([state]);
-  let queue = [state];
-
-  while (queue.length > 0) {
-    let currentState = queue.shift();
-    let epsilonTransitions = transitions[currentState]["ϵ"];
-    if (epsilonTransitions) {
-      epsilonTransitions.forEach((nextState) => {
-        if (!closure.has(nextState)) {
-          closure.add(nextState);
-          queue.push(nextState);
-        }
-      });
-    }
+    });
   }
 
   return Array.from(closure);
 }
 
-function displayDFA(dfa) {
-  if (document.getElementById("dfaStates")) {
-    document.getElementById("dfaStates").innerText = dfa.states.join(", ");
-  }
-  if (document.getElementById("dfaAlphabet")) {
-    document.getElementById("dfaAlphabet").innerText = dfa.alphabet.join(", ");
-  }
-  if (document.getElementById("dfaInitialState")) {
-    document.getElementById("dfaInitialState").innerText = dfa.startState;
-  }
-  if (document.getElementById("dfaFinalStates")) {
-    document.getElementById("dfaFinalStates").innerText =
-      dfa.acceptStates.join(", ");
-  }
+function convertNFAtoDFA() {
+  const { states, alphabet, transitions, initialState, finalStates } =
+    automaton;
 
-  let transitionsTable = document.getElementById("dfaTransitions");
-  if (transitionsTable) {
-    transitionsTable.innerHTML = "";
-  }
-  dfa.states.forEach((state) => {
-    let row = transitionsTable.insertRow();
-    row.insertCell().innerText = state;
-    dfa.alphabet.forEach((symbol) => {
-      let cell = row.insertCell();
-      cell.innerText = dfa.transitions[state][symbol] || "";
+  let transitionMap = {};
+  states.forEach((state) => {
+    transitionMap[state] = {};
+    alphabet.concat("eps").forEach((symbol) => {
+      transitionMap[state][symbol] = [];
     });
   });
+
+  transitions.forEach((transition) => {
+    transition.nextStates.forEach((nextState) => {
+      transitionMap[transition.state][transition.symbol].push(nextState);
+    });
+  });
+
+  let initialStateClosure = epsilonClosure([initialState], transitionMap)
+    .sort()
+    .join("-");
+  let dfa = {
+    states: [],
+    alphabet: alphabet.filter((sym) => sym !== "eps"),
+    transitions: {},
+    initialState: initialStateClosure,
+    finalStates: [],
+  };
+
+  let queue = [initialStateClosure];
+  let visited = new Set(queue);
+
+  while (queue.length > 0) {
+    let currentStates = queue.shift();
+    let currentStatesArray = currentStates.split("-");
+
+    dfa.states.push(currentStates);
+    if (currentStatesArray.some((state) => finalStates.includes(state))) {
+      dfa.finalStates.push(currentStates);
+    }
+
+    dfa.alphabet.forEach((symbol) => {
+      let nextStateClosure = new Set();
+
+      currentStatesArray.forEach((state) => {
+        (transitionMap[state][symbol] || []).forEach((nextState) => {
+          epsilonClosure([nextState], transitionMap).forEach((closureState) => {
+            nextStateClosure.add(closureState);
+          });
+        });
+      });
+
+      let nextStateKey = Array.from(nextStateClosure).sort().join("-");
+      if (nextStateKey && !visited.has(nextStateKey)) {
+        queue.push(nextStateKey);
+        visited.add(nextStateKey);
+      }
+
+      dfa.transitions[currentStates] = dfa.transitions[currentStates] || {};
+      dfa.transitions[currentStates][symbol] = nextStateKey || null;
+    });
+  }
+
+  displayDfaTable(dfa);
+  const dfaGraph = buildDFAGraphDefinition(dfa);
+  renderGraph(dfaGraph, "graphDfa");
+}
+
+function displayDfaTable(dfa) {
+  const dfaResultDiv = document.getElementById("dfaTable");
+  let html = "<h2>DFA Conversion Table</h2><table><tr><th>State</th>";
+  dfa.alphabet.forEach((symbol) => {
+    html += `<th>${symbol}</th>`;
+  });
+  html += "</tr>";
+
+  dfa.states.forEach((state) => {
+    html += `<tr><td>${state}</td>`;
+    dfa.alphabet.forEach((symbol) => {
+      let nextState = dfa.transitions[state][symbol] || "—";
+      html += `<td>${nextState}</td>`;
+    });
+    html += "</tr>";
+  });
+
+  html += "</table>";
+  dfaResultDiv.innerHTML = html;
+}
+
+function buildDFAGraphDefinition(dfa) {
+  let mermaidDef = "graph LR\n";
+  mermaidDef += `    start -->${dfa.initialState}\n`;
+
+  // Define transitions
+  dfa.states.forEach((state) => {
+    dfa.alphabet.forEach((symbol) => {
+      if (dfa.transitions[state] && dfa.transitions[state][symbol]) {
+        mermaidDef += `    ${state} -->|${symbol}| ${dfa.transitions[state][symbol]}\n`;
+      }
+    });
+  });
+
+  // Define states appearance
+  dfa.states.forEach((state) => {
+    if (dfa.initialState === state) {
+      mermaidDef += `    ${state}((${state}))\n`;
+    } else if (dfa.finalStates.includes(state)) {
+      mermaidDef += `    ${state}(((${state})))\n`;
+    } else {
+      mermaidDef += `    ${state}((${state}))\n`;
+    }
+  });
+
+  return mermaidDef;
 }
