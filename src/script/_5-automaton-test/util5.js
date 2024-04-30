@@ -23,14 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Fungsi untuk mengisi form dengan data contoh
 export function fillExampleData(automatonType) {
-  let exampleData;
-  if (automatonType === "regex") {
-    const regexExamples = examples.filter((ex) => ex.type === "regex");
-    exampleData =
-      regexExamples[Math.floor(Math.random() * regexExamples.length)];
-  } else {
-    exampleData = examples.find((ex) => ex.type === automatonType);
-  }
+  // Filter examples berdasarkan tipe automaton
+  const filteredExamples = examples.filter((ex) => ex.type === automatonType);
+
+  // Pilih contoh secara acak dari contoh yang difilter
+  const exampleData =
+    filteredExamples[Math.floor(Math.random() * filteredExamples.length)];
 
   if (!exampleData || !exampleData.data) {
     console.error("No example data found for type:", automatonType);
@@ -38,12 +36,14 @@ export function fillExampleData(automatonType) {
   }
 
   const data = exampleData.data;
+
+  // Logika pengisian form tergantung pada tipe automaton
   if (automatonType === "regex") {
     // Hanya mengisi pola regex dan mengosongkan test string
     document.getElementById("regexPattern").value = data.pattern;
     document.getElementById("regexInput").value = ""; // Kosongkan input test string saat memuat contoh
   } else {
-    // Mengisi data untuk automata lainnya
+    // Mengisi data untuk automata DFA, NFA, dan e-NFA
     document.getElementById(automatonType + "States").value = data.states;
     document.getElementById(automatonType + "Alphabet").value = data.alphabet;
     document.getElementById(automatonType + "InitialState").value =
@@ -91,7 +91,7 @@ export function convertTransition(transitions) {
       formattedTransitions.push({
         state: state,
         symbol: symbol,
-        nextStates: [nextState]  // Masukkan nextState ke dalam array untuk konsistensi
+        nextStates: [nextState], // Masukkan nextState ke dalam array untuk konsistensi
       });
     }
   }
