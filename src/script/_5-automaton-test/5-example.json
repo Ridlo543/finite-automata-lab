@@ -83,11 +83,5 @@
     "data": {
       "pattern": "1*00*11"
     }
-  },
-  {
-    "type": "regex",
-    "data": {
-      "pattern": "a+bc"
-    }
   }
 ]
