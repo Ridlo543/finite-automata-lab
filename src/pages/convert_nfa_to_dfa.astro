@@ -8,11 +8,11 @@ import Layout from "src/layouts/Layout.astro";
     <h1 class="text-4xl font-bold text-center mt-16 mb-6">
       Convert NFA to DFA
     </h1>
-    <div class="bg-white p-6 rounded shadow">
+    <div class="bg-white rounded shadow">
       <!-- INPUT CONTENT -->
       <div class="px-8 py-8">
         <h2 class="text-2xl font-bold mb-4">Input NFA/ε-NFA</h2>
-        <form id="automataForm" class=" space-y-4">
+        <form id="automataForm" class="space-y-4">
           <div>
             <label for="states" class="block mb-2"
               >States (comma-separated):</label
@@ -44,7 +44,6 @@ import Layout from "src/layouts/Layout.astro";
           </div>
           <div class="flex gap-4 justify-between">
             <div>
-              
               <button
                 id="convertButtonToDFA"
                 type="button"
@@ -70,18 +69,17 @@ import Layout from "src/layouts/Layout.astro";
         </form>
       </div>
       <div id="dfaTransitions"></div>
-
-      <!-- GRAPH CONTENT -->
-      <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
-        <div class="w-full sm:w-1/2 text-center justify-center items-center">
-          <div id="graphNFA" class="mt-8"></div>
-        </div>
-        <div class="w-full sm:w-1/2 text-center justify-center items-center">
-          <div id="graphDFA" class="mt-8"></div>
-        </div>
-      </div>
-      <div id="dfaTable"></div>
     </div>
+    <!-- GRAPH CONTENT -->
+    <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
+      <div class="w-full sm:w-1/2 text-center justify-center items-center">
+        <div id="graphNFA" class="mt-8"></div>
+      </div>
+      <div class="w-full sm:w-1/2 text-center justify-center items-center">
+        <div id="graphDFA" class="mt-8"></div>
+      </div>
+    </div>
+    <div id="dfaTable"></div>
 
     <script src="../script/automaton-drawer.js"></script>
     <script src="../script/form-handler.js"></script>

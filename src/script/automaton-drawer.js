@@ -1,7 +1,5 @@
 // automaton-drawer.js
-import {
-  updateAutomatonFromForm
-} from "./form-handler";
+import { updateAutomatonFromForm } from "./form-handler";
 import mermaid from "mermaid";
 import { convertTransition, isFormDataValid } from "./util";
 
@@ -34,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  
 });
 
 export function buildGraphDefinition(automaton) {
@@ -53,12 +50,15 @@ export function buildGraphDefinition(automaton) {
 
   // Define states appearance
   states.forEach((state) => {
-    if (initialState === state) {
-      // Initial state with a single circle
-      mermaidDef += `    ${state}(("${state}"))\n`;
+    if (initialState === state && finalStates.includes(state)) {
+      // State is both initial and final
+      mermaidDef += `    ${state}(((${state})))\n`; // Double circle for initial and final state
     } else if (finalStates.includes(state)) {
       // Final state with a double circle
       mermaidDef += `    ${state}(((${state})))\n`;
+    } else if (initialState === state) {
+      // Initial state with a single circle
+      mermaidDef += `    ${state}(("${state}"))\n`;
     } else {
       // Regular state with a single circle
       mermaidDef += `    ${state}((${state}))\n`;
@@ -82,7 +82,6 @@ export function renderGraph(graphDefinition, targetDiv) {
   const title = document.createElement("h2");
   title.className = "text-lg font-semibold text-gray-800 mb-4";
 
-  
   title.textContent =
     targetDiv === "graphResult" ? "Graph Automata" : targetDiv;
   graphDiv.appendChild(title);

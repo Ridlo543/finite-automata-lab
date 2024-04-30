@@ -53,45 +53,31 @@ function checkEquivalence() {
 }
 
 function areEquivalent(dfa1, dfa2) {
-  // Cek basis: panjang states dan alfabet
   if (
     dfa1.states.length !== dfa2.states.length ||
-    dfa1.alphabet.length !== dfa2.alphabet.length
+    dfa1.alphabet.length !== dfa2.alphabet.length ||
+    dfa1.initialState !== dfa2.initialState ||
+    !arraysEqual(dfa1.finalStates, dfa2.finalStates)
   ) {
     return false;
   }
 
-  // Cek kesamaan initial state
-  if (dfa1.initialState !== dfa2.initialState) {
-    return false;
-  }
-
-  // Cek kesamaan final states
-  if (!arraysEqual(dfa1.finalStates, dfa2.finalStates)) {
-    return false;
-  }
-
-  // Membangun dan memeriksa tabel state
-  const visited = new Set();
   const queue = [[dfa1.initialState, dfa2.initialState]];
+  const visited = new Set();
 
-  while (queue.length > 0) {
-    const [state1, state2] = queue.shift();
-    const key = state1 + "," + state2;
+  while (queue.length) {
+    const [s1, s2] = queue.shift();
+    const key = `${s1},${s2}`;
     if (visited.has(key)) continue;
     visited.add(key);
 
-    if (isFinal(state1, dfa1) !== isFinal(state2, dfa2)) {
-      return false;
-    }
+    if (isFinal(s1, dfa1) !== isFinal(s2, dfa2)) return false;
 
     for (const symbol of dfa1.alphabet) {
-      const nextState1 = dfa1.transitions[state1]?.[symbol] || [];
-      const nextState2 = dfa2.transitions[state2]?.[symbol] || [];
-      if (!arraysEqual(nextState1, nextState2)) {
-        return false;
-      }
-      queue.push([nextState1[0], nextState2[0]]);
+      const nextState1 = dfa1.transitions[s1][symbol] || [];
+      const nextState2 = dfa2.transitions[s2][symbol] || [];
+      if (!arraysEqual(nextState1, nextState2)) return false;
+      queue.push([nextState1, nextState2]);
     }
   }
 
@@ -108,50 +94,64 @@ function arraysEqual(arr1, arr2) {
 
 function displayEquivalenceResults(areEqual, dfa1, dfa2) {
   const resultDiv = document.getElementById("EquivalenceTableResult");
-
-  let equivalenceTable = generateEquivalenceTable(dfa1, dfa2);
-
-  let htmlContent = `<div>${equivalenceTable}</div>
+  let htmlContent = `
+    <h2 class="text-xl font-bold text-gray-800">Equivalence Results</h2>
+    <div>${generateEquivalenceTable(dfa1, dfa2)}</div>
     <div class="text-center p-2 mt-2 mb-8 ${
-      areEqual ? "bg-green-100" : "bg-red-100"
-    } text-${areEqual ? "green" : "red"}-700">
-          ${areEqual ? "Equivalent" : "Not Equivalent"}
-        </div>`;
-
+      areEqual ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+    }">
+      ${areEqual ? "Equivalent" : "Not Equivalent"}
+    </div>
+    <div class="mt-4 text-sm text-gray-600">
+      <p><strong>IS (Intermediate State):</strong> State yang bukan akhir dari automata.</p>
+      <p><strong>FS (Final State):</strong> State akhir dari automata, dimana string dapat diterima.</p>
+    </div>`;
   resultDiv.innerHTML = htmlContent;
 }
 
 function generateEquivalenceTable(dfa1, dfa2) {
   let tableHtml = `<table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-              <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">States \\ Symbol</th>`;
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">States</th>`;
   dfa1.alphabet.forEach((symbol) => {
-    tableHtml += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
+    tableHtml += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">${symbol}</th>`;
   });
   tableHtml += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 
-  // Memproses setiap state di DFA 1 dan mencocokkannya dengan state yang sama di DFA 2
-  dfa1.states.forEach((state1) => {
-    if (dfa2.states.includes(state1)) {
-      // Hanya mencocokkan jika state2 juga memiliki state yang sama
-      tableHtml += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{${state1}, ${state1}}</td>`;
-      dfa1.alphabet.forEach((symbol) => {
-        let nextState1 = dfa1.transitions[state1][symbol];
-        let nextState2 = dfa2.transitions[state1][symbol]; // Asumsi bahwa dfa2 memiliki transisi yang sama
-        let classification1 = getStateClassification(nextState1, dfa1);
-        let classification2 = getStateClassification(nextState2, dfa2);
-        tableHtml += `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{${nextState1}, ${nextState2}}<br>${classification1}, ${classification2}</td>`;
-      });
-      tableHtml += `</tr>`;
-    }
-  });
+  // Membangun dan memeriksa tabel state dengan BFS
+  const visited = new Set();
+  const queue = [[dfa1.initialState, dfa2.initialState]];
+
+  while (queue.length > 0) {
+    const [state1, state2] = queue.shift();
+    const key = state1 + "," + state2;
+    if (visited.has(key)) continue;
+    visited.add(key);
+
+    let classification1 = getStateClassification(state1, dfa1);
+    let classification2 = getStateClassification(state2, dfa2);
+    tableHtml += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{${state1}, ${state2}}<br>${classification1}, ${classification2}</td>`;
+
+    dfa1.alphabet.forEach((symbol) => {
+      const nextState1 = dfa1.transitions[state1]?.[symbol] || [];
+      const nextState2 = dfa2.transitions[state2]?.[symbol] || [];
+      if (!visited.has(nextState1[0] + "," + nextState2[0])) {
+        queue.push([nextState1[0], nextState2[0]]);
+      }
+
+      let classificationNext1 = getStateClassification(nextState1[0], dfa1);
+      let classificationNext2 = getStateClassification(nextState2[0], dfa2);
+      tableHtml += `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{${nextState1}, ${nextState2}}<br>${classificationNext1}, ${classificationNext2}</td>`;
+    });
+
+    tableHtml += `</tr>`;
+  }
 
   tableHtml += `</tbody></table>`;
   return tableHtml;
 }
 
-// Fungsi untuk memeriksa klasifikasi state apakah Final (FS) atau Intermediate (IS)
 function getStateClassification(state, automaton) {
   return automaton.finalStates.includes(state) ? "FS" : "IS";
 }

@@ -6,32 +6,33 @@ import Layout from "src/layouts/Layout.astro";
 <Layout title="Test Automata">
   <main class="container mx-auto my-4 py-8">
     <h1 class="text-4xl font-bold text-center mt-16 mb-6">Automata Test</h1>
-    <div class="flex justify-center mb-8">
+    <div class="flex justify-center gap-2 mb-8 mx-4">
       <button
         id="btnDFA"
         data-automaton-type="dfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-transparent hover:border-white rounded transition duration-200 ease-in-out"
         >DFA</button
       >
       <button
         id="btnNFA"
         data-automaton-type="nfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-transparent hover:border-white rounded transition duration-200 ease-in-out"
         >NFA</button
       >
       <button
         id="btnENFA"
         data-automaton-type="enfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-transparent hover:border-white rounded transition duration-200 ease-in-out"
         >E-NFA</button
       >
       <button
         id="btnRegex"
         data-automaton-type="regex"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-transparent hover:border-white rounded transition duration-200 ease-in-out"
         >Regex</button
       >
     </div>
+
     <div
       id="formDFA"
       class="hidden space-y-4 bg-white sm:p-8 p-6 mx-4 rounded shadow"
@@ -95,7 +96,7 @@ import Layout from "src/layouts/Layout.astro";
           >
           <button
             id="dfaTestButton"
-            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            class="px-4 py-2 my-1 mx-1 bg-violet-800 text-white rounded-md"
             >Test String</button
           >
         </div>
@@ -185,7 +186,7 @@ import Layout from "src/layouts/Layout.astro";
           >
           <button
             id="nfaTestButton"
-            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            class="px-4 py-2 my-1 mx-1 bg-violet-800 text-white rounded-md"
             >Test String</button
           >
         </div>
@@ -276,7 +277,7 @@ import Layout from "src/layouts/Layout.astro";
           >
           <button
             id="enfaTestButton"
-            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            class="px-4 py-2 my-1 mx-1 bg-violet-800 text-white rounded-md"
             >Test String</button
           >
         </div>
@@ -328,7 +329,7 @@ import Layout from "src/layouts/Layout.astro";
         <div>
           <button
             id="regexTestButton"
-            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            class="px-4 py-2 my-1 mx-1 bg-violet-800 text-white rounded-md"
             >Test Regex</button
           >
         </div>
