@@ -104,14 +104,24 @@ function convertNFAtoDFA() {
 function displayDfaTable(dfa) {
   const dfaResultDiv = document.getElementById("dfaTable");
   let html = `<h2 class="text-lg font-bold text-violet-800 mb-4">DFA Conversion Table</h2>
-  <table class="divide-y w-full rounded-lg divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
+  <table class="min-w-full divide-y divide-gray-200 shadow-sm border-b border-gray-200 sm:rounded-lg"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
+
   dfa.alphabet.forEach((symbol) => {
-    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
+    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
   });
   html += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 
   dfa.states.forEach((state) => {
-    html += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${state}</td>`;
+    // Tambahkan penanda untuk initial state dan final state
+    let stateLabel = state;
+    if (state === dfa.initialState) {
+      stateLabel = "-> " + stateLabel;
+    }
+    if (dfa.finalStates.includes(state)) {
+      stateLabel = "*" + stateLabel;
+    }
+
+    html += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${stateLabel}</td>`;
     dfa.alphabet.forEach((symbol) => {
       let nextState = dfa.transitions[state][symbol] || "—";
       html += `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${nextState}</td>`;
@@ -125,7 +135,7 @@ function displayDfaTable(dfa) {
 
 function buildDFAGraphDefinition(dfa) {
   let mermaidDef = "graph LR\n";
-  mermaidDef += `    start -->${dfa.initialState}\n`;
+  mermaidDef += `    start --> ${dfa.initialState}\n`;
 
   // Define transitions
   dfa.states.forEach((state) => {
@@ -136,14 +146,15 @@ function buildDFAGraphDefinition(dfa) {
     });
   });
 
-  // Define states appearance
   dfa.states.forEach((state) => {
-    if (dfa.initialState === state) {
-      mermaidDef += `    ${state}((${state}))\n`;
+    if (dfa.initialState === state && dfa.finalStates.includes(state)) {
+      mermaidDef += `    ${state}(((${state})))\n`; // Double circle for both initial and final
     } else if (dfa.finalStates.includes(state)) {
-      mermaidDef += `    ${state}(((${state})))\n`;
+      mermaidDef += `    ${state}(((${state})))\n`; // Double circle for final state
+    } else if (dfa.initialState === state) {
+      mermaidDef += `    ${state}(("${state}"))\n`; // Single circle for initial state
     } else {
-      mermaidDef += `    ${state}((${state}))\n`;
+      mermaidDef += `    ${state}((${state}))\n`; // Single circle for other states
     }
   });
 

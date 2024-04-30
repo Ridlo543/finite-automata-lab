@@ -53,31 +53,45 @@ function checkEquivalence() {
 }
 
 function areEquivalent(dfa1, dfa2) {
-  if (
-    dfa1.states.length !== dfa2.states.length ||
-    dfa1.alphabet.length !== dfa2.alphabet.length ||
-    dfa1.initialState !== dfa2.initialState ||
-    !arraysEqual(dfa1.finalStates, dfa2.finalStates)
-  ) {
-    return false;
-  }
-
+  const visited = new Map();
   const queue = [[dfa1.initialState, dfa2.initialState]];
-  const visited = new Set();
 
   while (queue.length) {
-    const [s1, s2] = queue.shift();
-    const key = `${s1},${s2}`;
+    const [state1, state2] = queue.shift();
+    const key = `${state1},${state2}`;
+
     if (visited.has(key)) continue;
-    visited.add(key);
+    visited.set(key, true);
 
-    if (isFinal(s1, dfa1) !== isFinal(s2, dfa2)) return false;
+    // Periksa kesamaan jenis state (FS atau IS)
+    if (isFinal(state1, dfa1) !== isFinal(state2, dfa2)) {
+      return false;
+    }
 
-    for (const symbol of dfa1.alphabet) {
-      const nextState1 = dfa1.transitions[s1][symbol] || [];
-      const nextState2 = dfa2.transitions[s2][symbol] || [];
-      if (!arraysEqual(nextState1, nextState2)) return false;
-      queue.push([nextState1, nextState2]);
+    const symbols1 = Object.keys(dfa1.transitions[state1] || {});
+    const symbols2 = Object.keys(dfa2.transitions[state2] || {});
+
+    // Gabungkan simbol dari kedua alfabet
+    const symbols = new Set([...symbols1, ...symbols2]);
+
+    for (const symbol of symbols) {
+      const nextState1 = dfa1.transitions[state1]?.[symbol] || [];
+      const nextState2 = dfa2.transitions[state2]?.[symbol] || [];
+
+      nextState1.forEach((ns1) => {
+        nextState2.forEach((ns2) => {
+          queue.push([ns1, ns2]);
+        });
+      });
+
+      // Cek apakah kedua next state memiliki klasifikasi yang sama
+      if (
+        !nextState1.every((ns1) =>
+          nextState2.some((ns2) => isFinal(ns1, dfa1) === isFinal(ns2, dfa2))
+        )
+      ) {
+        return false;
+      }
     }
   }
 

@@ -1,5 +1,9 @@
 // dfa-minimizer.js
-import { renderGraph, automaton, buildGraphDefinition } from "../automaton-drawer";
+import {
+  renderGraph,
+  automaton,
+  buildGraphDefinition,
+} from "../automaton-drawer";
 import { updateAutomatonFromForm } from "../form-handler";
 import { isFormDataValid } from "../util";
 // import { convertTransition } from "../util";
@@ -215,11 +219,21 @@ export function buildMinimizedGraphDefinition(minimizedAutomaton, partitions) {
 
   // Define states and emphasize initial and final states
   new Set([...representativeMap.values()]).forEach((state) => {
-    if (state === minimizedAutomaton.initialState) {
-      mermaidDef += `    ${state}(("${state}"))\n`;
+    // Check if the state is both initial and final
+    if (
+      state === minimizedAutomaton.initialState &&
+      minimizedAutomaton.finalStates.includes(state)
+    ) {
+      // Double circle for initial and final
+      mermaidDef += `    ${state}(((${state})))\n`;
     } else if (minimizedAutomaton.finalStates.includes(state)) {
+      // Double circle for final states only
       mermaidDef += `    ${state}((("${state}")))\n`;
+    } else if (state === minimizedAutomaton.initialState) {
+      // Single circle for initial states only
+      mermaidDef += `    ${state}(("${state}"))\n`;
     } else {
+      // Regular state with a single circle
       mermaidDef += `    ${state}((${state}))\n`;
     }
   });
