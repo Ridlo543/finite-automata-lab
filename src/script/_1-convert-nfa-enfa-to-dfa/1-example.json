@@ -1,0 +1,23 @@
+[
+  {
+    "states": "q0,q1",
+    "alphabet": "0,1,eps",
+    "initialState": "q0",
+    "finalStates": "q1",
+    "transitions": {
+      "q0": { "0": ["q1"], "1": ["q0"], "eps": ["q1"] },
+      "q1": { "0": ["q1"], "1": ["q1"], "eps": [] }
+    }
+  },
+  {
+    "states": "s0,s1,s2",
+    "alphabet": "a,b,eps",
+    "initialState": "s0",
+    "finalStates": "s2",
+    "transitions": {
+      "s0": { "a": ["s1"], "b": ["s0"], "eps": ["s2"] },
+      "s1": { "a": ["s2"], "b": ["s1"], "eps": [] },
+      "s2": { "a": ["s2"], "b": ["s2"], "eps": [] }
+    }
+  }
+]

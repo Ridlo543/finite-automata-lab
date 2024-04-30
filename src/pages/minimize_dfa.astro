@@ -8,7 +8,7 @@ import Layout from "../layouts/Layout.astro";
     <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow">
       <!-- INPUT CONTENT -->
       <div class="px-8 py-8">
-        <form id="automataForm" class=" automataForm space-y-4">
+        <form id="automataForm" class="space-y-4">
           <div>
             <label for="states" class="block mb-2"
               >States (comma-separated):</label
@@ -38,14 +38,9 @@ import Layout from "../layouts/Layout.astro";
           <div id="transitionsDiv" class="space-y-2">
             <!-- Transitions will be inserted here by JS -->
           </div>
+          <!-- Button Content -->
           <div class="flex gap-4 justify-between">
             <div>
-              <button
-                id="drawGraphButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Draw Graph</button
-              >
               <button
                 id="minimizeButton"
                 type="button"
@@ -79,8 +74,8 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row">
-      <div class="mx-auto mt-8 ">
+    <div id="testDfaContent" class="hidden">
+      <div class="ml-4 mt-8">
         <label for="testStringOriginal">Test input for original DFA:</label>
         <input
           id="testStringOriginal"
@@ -97,7 +92,7 @@ import Layout from "../layouts/Layout.astro";
         <div id="resultOriginal"></div>
       </div>
 
-      <div class="mx-auto mt-8 ">
+      <div class="ml-4 mt-8">
         <label for="testStringMinimized">Test input for minimized DFA:</label>
         <input
           id="testStringMinimized"
@@ -128,9 +123,10 @@ import Layout from "../layouts/Layout.astro";
     <div id="tableFillingSteps" class="mt=8 p-4"></div>
   </main>
 
-  <script src="../script/automaton-drawer.js"></script>
-  <script src="../script/dfa-minimizer.js"></script>
-  <script src="../script/dfa-table-filling.js"></script>
-  <script src="../script/util.js"></script>
-  <script src="../script/test-dfa.js"></script>
+  <!-- <script src="../script/automaton-drawer.js"></script> -->
+  <script src="../script/form-handler.js"></script>
+  <script src="../script/_3-minimize-dfa/dfa-minimizer.js"></script>
+  <script src="../script/_3-minimize-dfa/dfa-table-filling.js"></script>
+  <script src="../script/_3-minimize-dfa/test-dfa.js"></script>
+  <script src="../script/_3-minimize-dfa/util3.js"></script>
 </Layout>

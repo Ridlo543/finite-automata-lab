@@ -16,22 +16,45 @@ import Layout from "src/layouts/Layout.astro";
             placeholder="Enter regex pattern"
             class="bg-white rounded-md border p-2"
           />
-
-          <button
-            id="convertRegex"
-            class="px-4 py-2 bg-violet-800 text-white rounded-md"
-            >Convert Regex</button
-          >
+          <!-- Button Content -->
+          <div class="flex gap-4 justify-between">
+            <div>
+              <button
+                id="convertRegex"
+                class="px-4 py-2 bg-violet-800 text-white rounded-md"
+                >Convert Regex</button
+              >
+            </div>
+            <div>
+              <button
+                id="exampleRegexButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Example</button
+              >
+              <button
+                id="resetRegexButton"
+                type="button"
+                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+                >Reset</button
+              >
+            </div>
+          </div>
         </form>
       </div>
     </div>
     <!-- NFA transition table & initial, final state -->
-    <div id="nfaResult" class="pb-8 mb-8"></div>
+    <div id="nfaResult" class="pb-8 "></div>
     <!-- graph NFA -->
     <div class="flex w-full text-center justify-center items-center">
-        <div id="graphRegexNFA" class="mb-8"></div>
+      <div
+        id="graphRegexNFA"
+        class="w-full min-h-full my-4 justify-center items-center"
+      >
       </div>
+    </div>
   </main>
 
   <script src="../script/_2-regex-to-nfa/regex-to-nfa.js"></script>
+  <script src="../script/_2-regex-to-nfa/util2.js"></script>
 </Layout>

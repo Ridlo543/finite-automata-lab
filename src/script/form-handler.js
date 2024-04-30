@@ -1,5 +1,18 @@
 import { automaton } from "./automaton-drawer";
 
+document.addEventListener("DOMContentLoaded", () => {
+  const automataForm = document.getElementById("automataForm");
+  if (automataForm) {
+    automataForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      updateAutomatonFromForm();
+    });
+
+    automataForm.states.addEventListener("change", createTransitionInputs);
+    automataForm.alphabet.addEventListener("change", createTransitionInputs);
+  }
+});
+
 export function updateAutomatonFromForm() {
   const automataForm = document.getElementById("automataForm");
   automaton.states = automataForm.states.value.split(",").map((s) => s.trim());
@@ -49,6 +62,10 @@ export function updateAutomatonConfig() {
     .getElementById("alphabet")
     .value.split(",")
     .map((s) => s.trim());
+  automaton.initialState = document.getElementById("initialState").value;
+  automaton.finalStates = document
+    .getElementById("finalState")
+    .value.split(",");
 }
 
 export function generateTransitionTableHTML(states, alphabet) {

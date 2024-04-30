@@ -1,7 +1,7 @@
-import { updateAutomatonFromForm } from "./form-handler";
-import { automaton } from "./automaton-drawer";
+import { updateAutomatonFromForm } from "../form-handler";
+import { automaton } from "../automaton-drawer";
 import { getNextState } from "./dfa-minimizer";
-import { isFormDataValid } from "./util";
+import { isFormDataValid } from "../util";
 
 document.addEventListener("DOMContentLoaded", () => {
   const tableFillingButton = document.getElementById("tableFillingButton");

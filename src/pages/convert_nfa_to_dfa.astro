@@ -12,7 +12,7 @@ import Layout from "src/layouts/Layout.astro";
       <!-- INPUT CONTENT -->
       <div class="px-8 py-8">
         <h2 class="text-2xl font-bold mb-4">Input NFA/ε-NFA</h2>
-        <form id="automataForm" class="automataForm space-y-4">
+        <form id="automataForm" class=" space-y-4">
           <div>
             <label for="states" class="block mb-2"
               >States (comma-separated):</label
@@ -21,7 +21,7 @@ import Layout from "src/layouts/Layout.astro";
           </div>
           <div>
             <label for="alphabet" class="block mb-2"
-              >Alphabet (comma-separated) (ε : eps):</label
+              >Alphabet (comma-separated) (inludes eps for ε : epsilon):</label
             >
             <input id="alphabet" type="text" class="rounded-md border p-2" />
           </div>
@@ -44,12 +44,7 @@ import Layout from "src/layouts/Layout.astro";
           </div>
           <div class="flex gap-4 justify-between">
             <div>
-              <button
-                id="drawGraphButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Draw Graph</button
-              >
+              
               <button
                 id="convertButtonToDFA"
                 type="button"
@@ -79,17 +74,18 @@ import Layout from "src/layouts/Layout.astro";
       <!-- GRAPH CONTENT -->
       <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
         <div class="w-full sm:w-1/2 text-center justify-center items-center">
-          <div id="graphResult" class="mt-8"></div>
+          <div id="graphNFA" class="mt-8"></div>
         </div>
         <div class="w-full sm:w-1/2 text-center justify-center items-center">
-          <div id="graphDfa" class="mt-8"></div>
+          <div id="graphDFA" class="mt-8"></div>
         </div>
       </div>
       <div id="dfaTable"></div>
     </div>
 
     <script src="../script/automaton-drawer.js"></script>
+    <script src="../script/form-handler.js"></script>
     <script src="../script/_1-convert-nfa-enfa-to-dfa/nfa-to-dfa.js"></script>
-    <script src="../script/util.js"></script>
+    <script src="../script/_1-convert-nfa-enfa-to-dfa/util1.js"></script>
   </main>
 </Layout>

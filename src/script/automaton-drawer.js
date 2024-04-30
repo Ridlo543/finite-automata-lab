@@ -1,7 +1,6 @@
 // automaton-drawer.js
 import {
-  updateAutomatonFromForm,
-  createTransitionInputs,
+  updateAutomatonFromForm
 } from "./form-handler";
 import mermaid from "mermaid";
 import { convertTransition, isFormDataValid } from "./util";
@@ -19,7 +18,6 @@ export let automaton = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const automataForm = document.getElementById("automataForm");
   const drawGraphButton = document.getElementById("drawGraphButton");
 
   if (drawGraphButton) {
@@ -36,10 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  if (automataForm) {
-    automataForm.states.addEventListener("change", createTransitionInputs);
-    automataForm.alphabet.addEventListener("change", createTransitionInputs);
-  }
+  
 });
 
 export function buildGraphDefinition(automaton) {
@@ -85,6 +80,9 @@ export function renderGraph(graphDefinition, targetDiv) {
 
   // tambahkan judul grafik sesuai targetDiv
   const title = document.createElement("h2");
+  title.className = "text-lg font-semibold text-gray-800 mb-4";
+
+  
   title.textContent =
     targetDiv === "graphResult" ? "Graph Automata" : targetDiv;
   graphDiv.appendChild(title);

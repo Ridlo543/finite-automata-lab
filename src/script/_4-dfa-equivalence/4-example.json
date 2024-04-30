@@ -1,0 +1,24 @@
+[
+  {
+    "states": "q0,q1,q2",
+    "alphabet": "0,1",
+    "initialState": "q0",
+    "finalStates": ["q1"],
+    "transitions": {
+      "q0": { "0": ["q1"], "1": ["q2"] },
+      "q1": { "0": ["q1"], "1": ["q2"] },
+      "q2": { "0": ["q2"], "1": ["q2"] }
+    }
+  },
+  {
+    "states": "q0,q1,q2",
+    "alphabet": "0,1",
+    "initialState": "q0",
+    "finalStates": ["q0"],
+    "transitions": {
+      "q0": { "0": ["q1"], "1": ["q2"] },
+      "q1": { "0": ["q1"], "1": ["q2"] },
+      "q2": { "0": ["q2"], "1": ["q1"] }
+    }
+  }
+]

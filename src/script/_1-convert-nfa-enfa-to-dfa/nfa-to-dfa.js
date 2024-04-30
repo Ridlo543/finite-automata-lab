@@ -1,4 +1,8 @@
-import { automaton, renderGraph } from "../automaton-drawer";
+import {
+  automaton,
+  renderGraph,
+  buildGraphDefinition,
+} from "../automaton-drawer";
 import { updateAutomatonFromForm } from "../form-handler";
 document.addEventListener("DOMContentLoaded", function () {
   document
@@ -6,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", () => {
       updateAutomatonFromForm();
       console.log("Updated Automaton:", automaton);
+      renderGraph(buildGraphDefinition(automaton), "graphNFA");
       convertNFAtoDFA();
     });
 });
@@ -93,27 +98,28 @@ function convertNFAtoDFA() {
 
   displayDfaTable(dfa);
   const dfaGraph = buildDFAGraphDefinition(dfa);
-  renderGraph(dfaGraph, "graphDfa");
+  renderGraph(dfaGraph, "graphDFA");
 }
 
 function displayDfaTable(dfa) {
   const dfaResultDiv = document.getElementById("dfaTable");
-  let html = "<h2>DFA Conversion Table</h2><table><tr><th>State</th>";
+  let html = `<h2 class="text-lg font-bold text-violet-800 mb-4">DFA Conversion Table</h2>
+  <table class="divide-y w-full rounded-lg divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
   dfa.alphabet.forEach((symbol) => {
-    html += `<th>${symbol}</th>`;
+    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
   });
-  html += "</tr>";
+  html += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 
   dfa.states.forEach((state) => {
-    html += `<tr><td>${state}</td>`;
+    html += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${state}</td>`;
     dfa.alphabet.forEach((symbol) => {
       let nextState = dfa.transitions[state][symbol] || "—";
-      html += `<td>${nextState}</td>`;
+      html += `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${nextState}</td>`;
     });
-    html += "</tr>";
+    html += `</tr>`;
   });
 
-  html += "</table>";
+  html += `</tbody></table>`;
   dfaResultDiv.innerHTML = html;
 }
 

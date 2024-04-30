@@ -10,67 +10,48 @@ import Layout from "../layouts/Layout.astro";
     <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow mb-4">
       <!-- INPUT CONTENT DFA 1-->
       <div class="px-8 py-8">
-        <form id="automataForm" class="automataForm space-y-4">
+        <form id="automataForm1" class="space-y-4">
+          <h2 class="text-2xl font-bold">DFA 1</h2>
           <div>
-            <label for="states" class="block mb-2"
+            <label for="states1" class="block mb-2"
               >States (comma-separated):</label
             >
-            <input id="states" type="text" class="rounded-md border p-2" />
+            <input id="states1" type="text" class="rounded-md border p-2" />
           </div>
           <div>
-            <label for="alphabet" class="block mb-2"
+            <label for="alphabet1" class="block mb-2"
               >Alphabet (comma-separated):</label
             >
-            <input id="alphabet" type="text" class="rounded-md border p-2" />
+            <input id="alphabet1" type="text" class="rounded-md border p-2" />
           </div>
           <div>
-            <label for="initialState" class="block mb-2">Initial State:</label>
+            <label for="initialState1" class="block mb-2">Initial State:</label>
             <input
-              id="initialState"
+              id="initialState1"
               type="text"
               class="rounded-md border p-2"
             />
           </div>
           <div>
-            <label for="finalState" class="block mb-2"
+            <label for="finalState1" class="block mb-2"
               >Final States (comma-separated):</label
             >
-            <input id="finalState" type="text" class="rounded-md border p-2" />
+            <input id="finalState1" type="text" class="rounded-md border p-2" />
           </div>
-          <div id="transitionsDiv" class="space-y-2">
+          <div id="transitionsDiv1" class="space-y-2">
             <!-- Transitions will be inserted here by JS -->
           </div>
           <div class="flex gap-4 justify-between">
+            <div></div>
             <div>
               <button
-                id="drawGraphButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Draw Graph</button
-              >
-              <button
-                id="minimizeButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Minimize DFA</button
-              >
-              <button
-                id="tableFillingButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-              >
-                Minimize DFA (Table Filling)
-              </button>
-            </div>
-            <div>
-              <button
-                id="exampleButton"
+                id="exampleButton1"
                 type="button"
                 class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
                 >Example</button
               >
               <button
-                id="resetButton"
+                id="resetButton1"
                 type="button"
                 class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
                 >Reset</button
@@ -83,67 +64,49 @@ import Layout from "../layouts/Layout.astro";
     <div class="bg-white sm:p-6 p-2 mx-4 rounded shadow">
       <!-- INPUT CONTENT DFA 2 -->
       <div class="px-8 py-8">
-        <form id="dfaForm2" class="automataForm space-y-4">
+        <form id="automataForm2" class="space-y-4">
+          <h2 class="text-2xl font-bold">DFA 2</h2>
           <div>
-            <label for="states" class="block mb-2"
+            <label for="states2" class="block mb-2"
               >States (comma-separated):</label
             >
-            <input id="states" type="text" class="rounded-md border p-2" />
+            <input id="states2" type="text" class="rounded-md border p-2" />
           </div>
           <div>
-            <label for="alphabet" class="block mb-2"
+            <label for="alphabet2" class="block mb-2"
               >Alphabet (comma-separated):</label
             >
-            <input id="alphabet" type="text" class="rounded-md border p-2" />
+            <input id="alphabet2" type="text" class="rounded-md border p-2" />
           </div>
           <div>
-            <label for="initialState" class="block mb-2">Initial State:</label>
+            <label for="initialState2" class="block mb-2">Initial State:</label>
             <input
-              id="initialState"
+              id="initialState2"
               type="text"
               class="rounded-md border p-2"
             />
           </div>
           <div>
-            <label for="finalState" class="block mb-2"
+            <label for="finalState2" class="block mb-2"
               >Final States (comma-separated):</label
             >
-            <input id="finalState" type="text" class="rounded-md border p-2" />
+            <input id="finalState2" type="text" class="rounded-md border p-2" />
           </div>
-          <!-- <div id="transitionsDiv" class="space-y-2"> -->
+          <div id="transitionsDiv2" class="space-y-2">
             <!-- Transitions will be inserted here by JS -->
           </div>
+
           <div class="flex gap-4 justify-between">
+            <div></div>
             <div>
               <button
-                id="drawGraphButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Draw Graph</button
-              >
-              <button
-                id="minimizeButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-                >Minimize DFA</button
-              >
-              <button
-                id="tableFillingButton"
-                type="button"
-                class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
-              >
-                Minimize DFA (Table Filling)
-              </button>
-            </div>
-            <div>
-              <button
-                id="exampleButton"
+                id="exampleButton2"
                 type="button"
                 class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
                 >Example</button
               >
               <button
-                id="resetButton"
+                id="resetButton2"
                 type="button"
                 class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
                 >Reset</button
@@ -153,9 +116,32 @@ import Layout from "../layouts/Layout.astro";
         </form>
       </div>
     </div>
+
+    <!-- button check equivalence -->
+    <button
+      id="checkEquivalenceButton"
+      type="button"
+      class="rounded-md px-4 py-2 my-4 mx-4 bg-violet-800 hover:bg-violet-600 text-white"
+    >
+      Check Equivalence
+    </button>
+
+    <!-- Graph result -->
+    <div class="flex flex-col sm:flex-row px-8 gap-6 justify-around">
+      <div class="w-full sm:w-1/2 text-center justify-center items-center">
+        <div id="graphResult1" class="mt-8"></div>
+      </div>
+      <div class="w-full sm:w-1/2 text-center justify-center items-center">
+        <div id="graphResult2" class="mt-8"></div>
+      </div>
+    </div>
+
+    <!-- Transition Equivalence Result -->
+    <div id="EquivalenceTableResult"></div>
   </main>
-  <script src="../script/form-handler.js"></script>
-  
-  <script src="../script/automaton-drawer.js"></script>
-  <script src="../script/util.js"></script>
+
+  <script src="../script/_4-dfa-equivalence/form-handler-eq.js"></script>
+  <!-- <script src="../script/automaton-drawer.js"></script> -->
+  <script src="../script/_4-dfa-equivalence/dfa-equivalence.js"></script>
+  <script src="../script/_4-dfa-equivalence/util-4.js"></script>
 </Layout>

@@ -1,4 +1,4 @@
-import { automaton } from "./automaton-drawer";
+import { automaton } from "../automaton-drawer";
 import { minimizedAutomaton } from "./dfa-minimizer";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,9 +39,13 @@ function testDFA(dfa, inputId, resultId) {
     }
   }
 
+  const resultElement = document.getElementById(resultId);
+
   if (dfa.finalStates.includes(currentState)) {
-    document.getElementById(resultId).innerText = "Input accepted.";
+    resultElement.innerText = "Input accepted.";
+    resultElement.className = "bg-green-100 text-green-700 p-2 rounded"; 
   } else {
-    document.getElementById(resultId).innerText = "Input rejected.";
+    resultElement.innerText = "Input rejected.";
+    resultElement.className = "bg-red-100 text-red-700 p-2 rounded"; 
   }
 }

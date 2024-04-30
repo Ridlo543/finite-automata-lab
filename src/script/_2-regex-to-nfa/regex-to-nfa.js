@@ -221,17 +221,14 @@ function convertRegexToNFA() {
     return;
   }
 
-  const nfa = regexToNfa(regexInput);
-
+  const nfa = regexToNfa(regexInput); 
   const finalStates = Array.isArray(nfa.finalStates) ? nfa.finalStates : [];
-
   const display = displayNfa(nfa, finalStates);
-
   document.getElementById("nfaResult").innerHTML = display;
 
-  const mermaidDefinition = buildGraphDefinitionFromNFA(nfa);
-
+  const mermaidDefinition = buildGraphDefinitionFromNFA(nfa); 
   const targetDiv = document.getElementById("graphRegexNFA");
+
   if (targetDiv) {
     renderGraph(mermaidDefinition, "graphRegexNFA");
   }
@@ -286,7 +283,8 @@ function generateHtmlTable(tableData, finalStates, initialState) {
   );
   symbols = Array.from(symbols).sort();
 
-  let html = `<div class="text-sm font-medium text-gray-900">Initial State: ${initialState}</div>`;
+  let html = `<h2 class="text-lg font-semibold text-violet-700 mt-4 mb-2">Transition Table</h2>
+  <div class="text-sm font-medium text-gray-900">Initial State: ${initialState}</div>`;
   html += `<div class="text-sm font-medium text-gray-900">Final States: ${finalStates.join(
     ", "
   )}</div>`;
@@ -329,7 +327,7 @@ function buildGraphDefinitionFromNFA(nfa) {
         const symbol = edge[0];
         const targetNode = edge[1];
         mermaidDef += `    ${node.id} -->|${symbol}| ${targetNode.id}\n`;
-        processNode(targetNode); // Recursive call to handle all nodes
+        processNode(targetNode); 
       });
     }
   }

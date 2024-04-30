@@ -1,8 +1,8 @@
 // dfa-minimizer.js
-import { renderGraph, automaton } from "./automaton-drawer";
-import { updateAutomatonFromForm } from "./form-handler";
-import { isFormDataValid } from "./util";
-import { convertTransition } from "./util";
+import { renderGraph, automaton, buildGraphDefinition } from "../automaton-drawer";
+import { updateAutomatonFromForm } from "../form-handler";
+import { isFormDataValid } from "../util";
+// import { convertTransition } from "../util";
 
 export let minimizedAutomaton;
 
@@ -16,10 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
       updateAutomatonFromForm();
 
       if (isFormDataValid(automaton)) {
-        const transitionConverted = convertTransition(automaton);
-        console.log("Converted Transition Object:", transitionConverted);
-
+        // const transitionConverted = convertTransition(automaton);
+        // console.log("Converted Transition Object:", transitionConverted);
+        renderGraph(buildGraphDefinition(automaton), "graphResult");
         minimizeDFA();
+        const testDfaContent = document.getElementById("testDfaContent");
+        testDfaContent.classList.remove("hidden");
       } else {
         alert(
           "Please fill out all form fields correctly before minimizing the graph."
