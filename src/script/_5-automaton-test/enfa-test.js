@@ -9,7 +9,7 @@ function simulateENFA(inputString, automaton) {
   let currentStates = [automaton.initialState];
 
   for (let symbol of inputString) {
-    if (!automaton.alphabet.includes(symbol) && symbol !== "ε") {
+    if (!automaton.alphabet.includes(symbol) && symbol !== "eps") {
       return "String contains invalid symbols!";
     }
 
@@ -17,9 +17,8 @@ function simulateENFA(inputString, automaton) {
     for (let state of currentStates) {
       // Ambil transisi untuk simbol saat ini dan epsilon (jika ada)
       let symbolTransitions = automaton.transitions[state][symbol] || [];
-      let epsilonTransitions = automaton.transitions[state]["ε"] || [];
+      let epsilonTransitions = automaton.transitions[state]["eps"] || [];
 
-      // Periksa apakah transisi adalah array atau single state, lalu concat
       nextStates = nextStates.concat(
         symbolTransitions instanceof Array
           ? symbolTransitions
@@ -44,10 +43,18 @@ function simulateENFA(inputString, automaton) {
 
 function testENFA() {
   const inputString = document.getElementById("enfaInput").value;
-  updateAutomatonFromForm("enfa"); // Asumsi Anda telah memperbarui `automaton` berdasarkan input
+  const resultDiv = document.getElementById("enfaResult");
 
+  updateAutomatonFromForm("enfa");
   const result = simulateENFA(inputString, automaton);
-  document.getElementById(
-    "enfaResult"
-  ).innerText = `String (${inputString}): ${result}`;
+
+  if (result === "Accepted") {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-green-800 font-bold">Accepted</span>`;
+    resultDiv.classList.remove("bg-red-100", "text-red-600");
+    resultDiv.classList.add("bg-green-100", "text-green-600");
+  } else {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-red-800 font-bold">Rejected</span>`;
+    resultDiv.classList.remove("bg-green-100", "text-green-600");
+    resultDiv.classList.add("bg-red-100", "text-red-600");
+  }
 }

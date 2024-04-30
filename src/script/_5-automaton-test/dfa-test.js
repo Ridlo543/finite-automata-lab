@@ -28,16 +28,21 @@ function simulateDFA(inputString, automaton) {
 
 function testDFA() {
   const inputString = document.getElementById("dfaInput").value;
+  const resultDiv = document.getElementById("dfaResult");
   const automatonType = "dfa";
 
-  // Memperbarui konfigurasi automaton berdasarkan input form terbaru
   updateAutomatonFromForm(automatonType);
-  console.log(automaton);
-
   const result = simulateDFA(inputString, automaton);
-  document.getElementById(
-    "dfaResult"
-  ).innerText = `String (${inputString}): ${result}`;
+
+  if (result === "Accepted") {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-green-800 font-bold">Accepted</span>`;
+    resultDiv.classList.remove("bg-red-100", "text-red-600");
+    resultDiv.classList.add("bg-green-100", "text-green-600");
+  } else {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-red-800 font-bold">Rejected</span>`;
+    resultDiv.classList.remove("bg-green-100", "text-green-600");
+    resultDiv.classList.add("bg-red-100", "text-red-600");
+  }
 }
 
 function convertTransitions(transitionArray) {

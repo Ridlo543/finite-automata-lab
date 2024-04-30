@@ -26,15 +26,21 @@ function simulateNFA(inputString, automaton) {
 
 function testNFA() {
   const inputString = document.getElementById("nfaInput").value;
+  const resultDiv = document.getElementById("nfaResult");
   const automatonType = "nfa";
 
   updateAutomatonFromForm(automatonType);
-
-  // Memanggil fungsi simulasi NFA yang sudah diadaptasi
   const result = simulateNFA(inputString, automaton);
-  document.getElementById(
-    "nfaResult"
-  ).innerText = `String (${inputString}): ${result}`;
+
+  if (result === "Accepted") {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-green-800 font-bold">Accepted</span>`;
+    resultDiv.classList.remove("bg-red-100", "text-red-600");
+    resultDiv.classList.add("bg-green-100", "text-green-600");
+  } else {
+    resultDiv.innerHTML = `String "${inputString}": <span class="text-red-800 font-bold">Rejected</span>`;
+    resultDiv.classList.remove("bg-green-100", "text-green-600");
+    resultDiv.classList.add("bg-red-100", "text-red-600");
+  }
 }
 
 function convertTransitionsNFA(transitionArray) {

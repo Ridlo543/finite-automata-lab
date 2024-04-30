@@ -70,43 +70,46 @@ import Layout from "../layouts/Layout.astro";
               >
             </div>
           </div>
+          <div id="testDfaContent" class="hidden">
+            <div class="ml-4 mt-8">
+              <label for="testStringOriginal"
+                >Test input for original DFA:</label
+              >
+              <input
+                id="testStringOriginal"
+                type="text"
+                placeholder="Enter test string"
+                class="border rounded-md p-2"
+              />
+              <button
+                id="testButtonOriginal"
+                class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
+              >
+                Test Original
+              </button>
+              <div id="resultOriginal"></div>
+            </div>
+
+            <div class="ml-4 mt-8">
+              <label for="testStringMinimized"
+                >Test input for minimized DFA:</label
+              >
+              <input
+                id="testStringMinimized"
+                type="text"
+                placeholder="Enter test string"
+                class="border rounded-md p-2"
+              />
+              <button
+                id="testButtonMinimized"
+                class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
+              >
+                Test Minimized
+              </button>
+              <div id="resultMinimized"></div>
+            </div>
+          </div>
         </form>
-      </div>
-    </div>
-
-    <div id="testDfaContent" class="hidden">
-      <div class="ml-4 mt-8">
-        <label for="testStringOriginal">Test input for original DFA:</label>
-        <input
-          id="testStringOriginal"
-          type="text"
-          placeholder="Enter test string"
-          class="border rounded-md p-2"
-        />
-        <button
-          id="testButtonOriginal"
-          class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
-        >
-          Test Original
-        </button>
-        <div id="resultOriginal"></div>
-      </div>
-
-      <div class="ml-4 mt-8">
-        <label for="testStringMinimized">Test input for minimized DFA:</label>
-        <input
-          id="testStringMinimized"
-          type="text"
-          placeholder="Enter test string"
-          class="border rounded-md p-2"
-        />
-        <button
-          id="testButtonMinimized"
-          class="mx-1 my-2 rounded-md bg-violet-800 hover:bg-violet-600 text-white px-4 py-2"
-        >
-          Test Minimized
-        </button>
-        <div id="resultMinimized"></div>
       </div>
     </div>
 

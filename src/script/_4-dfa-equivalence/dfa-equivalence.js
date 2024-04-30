@@ -108,6 +108,7 @@ function arraysEqual(arr1, arr2) {
 
 function displayEquivalenceResults(areEqual, dfa1, dfa2) {
   const resultDiv = document.getElementById("EquivalenceTableResult");
+
   let equivalenceTable = generateEquivalenceTable(dfa1, dfa2);
 
   let htmlContent = `<div>${equivalenceTable}</div>
@@ -126,7 +127,7 @@ function generateEquivalenceTable(dfa1, dfa2) {
               <tr>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">States \\ Symbol</th>`;
   dfa1.alphabet.forEach((symbol) => {
-    tableHtml += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
+    tableHtml += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
   });
   tableHtml += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 

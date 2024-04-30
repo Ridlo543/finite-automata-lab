@@ -293,7 +293,7 @@ function generateHtmlTable(tableData, finalStates, initialState) {
     divide-y divide-gray-200 mt-4 shadow-sm border-b border-gray-200 sm:rounded-lg"><thead class="bg-gray-50"><tr>`;
   html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
   symbols.forEach((symbol) => {
-    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
+    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
   });
   html += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 

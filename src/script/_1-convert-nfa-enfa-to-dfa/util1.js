@@ -26,13 +26,10 @@ function fillFormWithData(data) {
     ? data.finalStates.join(",")
     : data.finalStates;
 
-  // Update automaton configuration to reflect the new form data
   updateAutomatonConfig();
 
-  // Create input fields for transitions based on the new configuration
   createTransitionInputs();
 
-  // Fill in the transition values
   fillTransitionInputs(data.transitions);
 }
 

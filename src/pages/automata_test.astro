@@ -10,25 +10,32 @@ import Layout from "src/layouts/Layout.astro";
       <button
         id="btnDFA"
         data-automaton-type="dfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white">DFA</button
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        >DFA</button
       >
       <button
         id="btnNFA"
         data-automaton-type="nfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white">NFA</button
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        >NFA</button
       >
       <button
         id="btnENFA"
         data-automaton-type="enfa"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white">E-NFA</button
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        >E-NFA</button
       >
       <button
         id="btnRegex"
         data-automaton-type="regex"
-        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white">Regex</button
+        class="px-4 py-2 bg-violet-800 hover:bg-violet-600 text-white border border-white"
+        >Regex</button
       >
     </div>
-    <div id="formDFA" class="hidden space-y-4 bg-white sm:p-8 p-6 mx-4 rounded shadow">
+    <div
+      id="formDFA"
+      class="hidden space-y-4 bg-white sm:p-8 p-6 mx-4 rounded shadow"
+    >
       <h2 class="text-2xl font-bold mb-4">
         Deterministic Finite Automaton (DFA)
       </h2>
@@ -76,12 +83,42 @@ import Layout from "src/layouts/Layout.astro";
         placeholder="Enter test string"
         class="bg-white rounded-md border p-2 mr-2"
       />
-      <button
-        id="dfaTestButton"
-        class="px-4 py-2 bg-violet-800 text-white rounded-md"
-        >Test String</button
-      >
-      <div id="dfaResult"></div>
+      <!--Button Content  -->
+      <div class="flex gap-4 justify-between">
+        <div>
+          <button
+            id="drawDFAButton"
+            type="button"
+            data-automaton-type="dfa"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Draw Graph</button
+          >
+          <button
+            id="dfaTestButton"
+            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            >Test String</button
+          >
+        </div>
+        <div>
+          <button
+            id="exampleDFAButton"
+            data-automaton-type="dfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Example</button
+          >
+          <button
+            id="resetDFAButton"
+            data-automaton-type="dfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Reset</button
+          >
+        </div>
+      </div>
+
+      <div id="dfaResult" class="mb-8 p-2 rounded-md"></div>
+      <div id="graphDFA" class="mt-4"></div>
     </div>
 
     <!-- form NFA -->
@@ -135,12 +172,42 @@ import Layout from "src/layouts/Layout.astro";
         placeholder="Enter test string"
         class="bg-white rounded-md border p-2 mr-2"
       />
-      <button
-        id="nfaTestButton"
-        class="px-4 py-2 bg-violet-800 text-white rounded-md"
-        >Test String</button
-      >
-      <div id="nfaResult"></div>
+
+      <!--Button Content  -->
+      <div class="flex gap-4 justify-between">
+        <div>
+          <button
+            id="drawNFAButton"
+            data-automaton-type="nfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Draw Graph</button
+          >
+          <button
+            id="nfaTestButton"
+            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            >Test String</button
+          >
+        </div>
+        <div>
+          <button
+            id="exampleNFAButton"
+            data-automaton-type="nfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Example</button
+          >
+          <button
+            id="resetNFAButton"
+            data-automaton-type="nfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Reset</button
+          >
+        </div>
+      </div>
+      <div id="nfaResult" class="mb-8 p-2 rounded-md"></div>
+      <div id="graphNFA" class="mt-4"></div>
     </div>
 
     <!--form ENFA  -->
@@ -196,12 +263,42 @@ import Layout from "src/layouts/Layout.astro";
         placeholder="Enter test string"
         class="bg-white rounded-md border p-2 mr-2"
       />
-      <button
-        id="enfaTestButton"
-        class="px-4 py-2 bg-violet-800 text-white rounded-md"
-        >Test String</button
-      >
-      <div id="enfaResult"></div>
+
+      <!--Button Content  -->
+      <div class="flex gap-4 justify-between">
+        <div>
+          <button
+            id="drawENFAButton"
+            data-automaton-type="enfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Draw Graph</button
+          >
+          <button
+            id="enfaTestButton"
+            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            >Test String</button
+          >
+        </div>
+        <div>
+          <button
+            id="exampleENFAButton"
+            data-automaton-type="enfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Example</button
+          >
+          <button
+            id="resetENFAButton"
+            data-automaton-type="enfa"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Reset</button
+          >
+        </div>
+      </div>
+      <div id="enfaResult" class="mb-8 p-2 rounded-md"></div>
+      <div id="graphENFA" class="mt-4"></div>
     </div>
 
     <!-- form Regex -->
@@ -226,11 +323,34 @@ import Layout from "src/layouts/Layout.astro";
         class="bg-white rounded-md border p-2 mr-2"
       />
 
-      <button
-        id="regexTestButton"
-        class="px-4 py-2 bg-violet-800 text-white rounded-md">Test Regex</button
-      >
-      <div id="regexResult" class="mb-8"></div>
+      <!--Button Content  -->
+      <div class="flex gap-4 justify-between">
+        <div>
+          <button
+            id="regexTestButton"
+            class="px-4 py-2 bg-violet-800 text-white rounded-md"
+            >Test Regex</button
+          >
+        </div>
+        <div>
+          <button
+            id="exampleREGEXButton"
+            data-automaton-type="regex"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Example</button
+          >
+          <button
+            id="resetREGEXButton"
+            data-automaton-type="regex"
+            type="button"
+            class="rounded-md px-4 py-2 my-1 mx-1 bg-violet-800 hover:bg-violet-600 text-white"
+            >Reset</button
+          >
+        </div>
+      </div>
+
+      <div id="regexResult" class="mb-8 p-2 rounded-md"></div>
     </div>
 
     <!-- script -->
@@ -263,5 +383,7 @@ import Layout from "src/layouts/Layout.astro";
     <script src="../script/_5-automaton-test/dfa-test.js"></script>
     <script src="../script/_5-automaton-test/enfa-test.js"></script>
     <script src="../script/_5-automaton-test/regex-test.js"></script>
+    <script src="../script/_5-automaton-test/util5.js"></script>
+    <script src="../script/_5-automaton-test/automata-drawer-test.js"></script>
   </main>
 </Layout>

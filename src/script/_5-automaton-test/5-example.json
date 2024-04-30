@@ -1,0 +1,61 @@
+[
+  {
+    "type": "dfa",
+    "data": {
+      "states": "q0,q1,q2,q3,q4",
+      "alphabet": "0,1",
+      "initialState": "q0",
+      "finalStates": "q4",
+      "transitions": {
+        "q0": { "0": "q1", "1": "q2" },
+        "q1": { "0": "q2", "1": "q3" },
+        "q2": { "0": "q3", "1": "q4" },
+        "q3": { "0": "q1", "1": "q2" },
+        "q4": { "0": "q2", "1": "q4" }
+      }
+    }
+  },
+  {
+    "type": "nfa",
+    "data": {
+      "states": "q0,q1,q2,q3",
+      "alphabet": "0,1",
+      "initialState": "q0",
+      "finalStates": "q3",
+      "transitions": {
+        "q0": { "0": "q1,q2", "1": "q0" },
+        "q1": { "0": "q3", "1": "q1,q2" },
+        "q2": { "0": "q2,q0", "1": "q3" },
+        "q3": { "0": "q3", "1": "q2" }
+      }
+    }
+  },
+  {
+    "type": "enfa",
+    "data": {
+      "states": "q0,q1,q2,q3,q4",
+      "alphabet": "0,1,eps",
+      "initialState": "q0",
+      "finalStates": "q2",
+      "transitions": {
+        "q0": { "1": "q0", "eps": "q2" },
+        "q1": { "1": "q0" },
+        "q2": { "0": "q3" },
+        "q3": { "0": "q2" },
+        "q4": { "0": "q2" }
+      }
+    }
+  },
+  {
+    "type": "regex",
+    "data": {
+      "pattern": "1*00*11"
+    }
+  },
+  {
+    "type": "regex",
+    "data": {
+      "pattern": "a+bc"
+    }
+  }
+]

@@ -106,7 +106,7 @@ function displayDfaTable(dfa) {
   let html = `<h2 class="text-lg font-bold text-violet-800 mb-4">DFA Conversion Table</h2>
   <table class="divide-y w-full rounded-lg divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">State \\ Symbol</th>`;
   dfa.alphabet.forEach((symbol) => {
-    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${symbol}</th>`;
+    html += `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">${symbol}</th>`;
   });
   html += `</tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
 

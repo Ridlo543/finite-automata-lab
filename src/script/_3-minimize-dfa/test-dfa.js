@@ -43,7 +43,7 @@ function testDFA(dfa, inputId, resultId) {
 
   if (dfa.finalStates.includes(currentState)) {
     resultElement.innerText = "Input accepted.";
-    resultElement.className = "bg-green-100 text-green-700 p-2 rounded"; 
+    resultElement.className = "bg-green-100 text-green-700 p-2 rounded w-auto"; 
   } else {
     resultElement.innerText = "Input rejected.";
     resultElement.className = "bg-red-100 text-red-700 p-2 rounded"; 
