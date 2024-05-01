@@ -6,7 +6,7 @@ import {
 } from "../automaton-drawer";
 import { updateAutomatonFromForm } from "../form-handler";
 import { isFormDataValid } from "../util";
-// import { convertTransition } from "../util";
+import { convertTransition } from "../util";
 
 export let minimizedAutomaton;
 
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isFormDataValid(automaton)) {
         // const transitionConverted = convertTransition(automaton);
         // console.log("Converted Transition Object:", transitionConverted);
+        console.log("Automaton Object:", automaton.transitions);
         renderGraph(buildGraphDefinition(automaton), "graphResult");
         minimizeDFA();
         const testDfaContent = document.getElementById("testDfaContent");

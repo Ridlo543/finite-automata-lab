@@ -1,7 +1,7 @@
 import { updateAutomatonFromForm } from "@script/_5-automaton-test/form-handler-test";
 import { buildGraphDefinition } from "@script/automaton-drawer";
 import { automaton } from "@script/automaton-drawer";
-import { convertTransition } from "@script/_5-automaton-test/util5";
+import { convertTransitions } from "@script/_5-automaton-test/util5";
 import mermaid from "mermaid";
 
 mermaid.initialize({
@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", function () {
       const automatonType = this.getAttribute("data-automaton-type");
       updateAutomatonFromForm(automatonType);
+      console.log("Automaton: ", automaton);
       //   console.log("Automaton: ", automaton);
-      automaton.transitions = convertTransition(automaton.transitions);
+      automaton.transitions = convertTransitions(automaton.transitions);
+      console.log("Transisi Automaton: ", automaton.transitions);
+      // console.log("Automaton: ", automaton);
       if (automaton) {
         renderGraph(
           buildGraphDefinition(automaton),

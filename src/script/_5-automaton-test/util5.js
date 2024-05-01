@@ -71,6 +71,15 @@ export function resetForm(automatonType) {
     document.getElementById(automatonType + "TransitionsDiv").innerHTML = "";
     document.getElementById(automatonType + "Input").value = "";
     document.getElementById(automatonType + "Result").innerHTML = "";
+    const resultElement = document.getElementById(automatonType + "Result");
+    resultElement.classList.remove("bg-red-100", "bg-green-100");
+
+    const graphDiv = document.getElementById(
+      "graph" + automatonType.toUpperCase()
+    );
+    if (graphDiv) {
+      graphDiv.innerHTML = "";
+    }
   }
 }
 
@@ -84,16 +93,16 @@ function fillTransitions(transitions, automatonType) {
   });
 }
 
-export function convertTransition(transitions) {
+export function convertTransitions(transitions) {
   let formattedTransitions = [];
-  for (const [state, symbols] of Object.entries(transitions)) {
-    for (const [symbol, nextState] of Object.entries(symbols)) {
-      formattedTransitions.push({
-        state: state,
-        symbol: symbol,
-        nextStates: [nextState], // Masukkan nextState ke dalam array untuk konsistensi
-      });
-    }
-  }
+  Object.entries(transitions).forEach(([state, symbols]) => {
+    Object.entries(symbols).forEach(([symbol, nextStates]) => {
+      // Menangani transisi yang mungkin dalam format string atau array
+      if (!Array.isArray(nextStates)) {
+        nextStates = nextStates.split(",").map((s) => s.trim());
+      }
+      formattedTransitions.push({ state, symbol, nextStates });
+    });
+  });
   return formattedTransitions;
 }
