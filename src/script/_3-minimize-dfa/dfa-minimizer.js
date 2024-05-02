@@ -22,9 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isFormDataValid(automaton)) {
         // const transitionConverted = convertTransition(automaton);
         // console.log("Converted Transition Object:", transitionConverted);
-        console.log("Automaton Object:", automaton.transitions);
+        // console.log("Automaton Object:", automaton.transitions);
         renderGraph(buildGraphDefinition(automaton), "graphResult");
         minimizeDFA();
+        console.log("Automaton Object:", automaton);
+        console.log("Minimized Automaton Object:", minimizedAutomaton);
         const testDfaContent = document.getElementById("testDfaContent");
         testDfaContent.classList.remove("hidden");
       } else {
@@ -37,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function minimizeDFA() {
+  // Menghapus state yang tidak dapat diakses dan state mati
+  removeInaccessibleAndDeadStates(automaton);
+
   // initialPartition() akan membagi states menjadi dua bagian: finalStates dan nonFinalStates
   let partitions = initialPartition(automaton);
   let newPartitions;
@@ -70,6 +75,57 @@ export function minimizeDFA() {
   renderGraph(
     buildMinimizedGraphDefinition(minimizedAutomaton, partitions),
     "minimizedGraph"
+  );
+}
+
+function removeInaccessibleAndDeadStates(automaton) {
+  let accessibleStates = new Set([automaton.initialState]);
+  let queue = [automaton.initialState];
+
+  // Breadth-First Search untuk menentukan accessible states
+  while (queue.length > 0) {
+    let currentState = queue.shift();
+    automaton.alphabet.forEach((symbol) => {
+      let nextStates = automaton.transitions
+        .filter((t) => t.state === currentState && t.symbol === symbol)
+        .flatMap((t) => t.nextStates);
+      nextStates.forEach((state) => {
+        if (!accessibleStates.has(state)) {
+          accessibleStates.add(state);
+          queue.push(state);
+        }
+      });
+    });
+  }
+
+  console.log("Accessible States:", accessibleStates);
+
+  // Filter untuk mendapatkan daftar state yang diakses saja
+  automaton.states = automaton.states.filter((state) =>
+    accessibleStates.has(state)
+  );
+  automaton.transitions = automaton.transitions.filter((t) =>
+    accessibleStates.has(t.state)
+  );
+
+  // Mengidentifikasi dan menghapus dead states
+  let deadStates = new Set(
+    automaton.states.filter(
+      (state) =>
+        !automaton.finalStates.includes(state) &&
+        automaton.alphabet.every((symbol) => {
+          let nextStates = automaton.transitions
+            .filter((t) => t.state === state && t.symbol === symbol)
+            .flatMap((t) => t.nextStates);
+          return nextStates.length === 1 && nextStates[0] === state;
+        })
+    )
+  );
+
+  // Hapus dead states dari daftar states dan transitions
+  automaton.states = automaton.states.filter((state) => !deadStates.has(state));
+  automaton.transitions = automaton.transitions.filter(
+    (t) => !deadStates.has(t.state)
   );
 }
 
