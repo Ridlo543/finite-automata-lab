@@ -39,29 +39,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function minimizeDFA() {
-  // Menghapus state yang tidak dapat diakses dan state mati
+  // Hapus state yang tidak dapat diakses dan state mati untuk membersihkan DFA.
   removeInaccessibleAndDeadStates(automaton);
 
-  // initialPartition() akan membagi states menjadi dua bagian: finalStates dan nonFinalStates
+  // Membagi state menjadi dua kelompok berdasarkan apakah mereka adalah final state atau bukan.
   let partitions = initialPartition(automaton);
   let newPartitions;
 
-  // renderEquivalenceStep() akan menampilkan langkah-langkah partisi
+  // Menampilkan partisi awal pada UI untuk visualisasi.
   let stepCounter = 0;
   renderEquivalenceStep(partitions, stepCounter);
 
+  // Iterasi untuk memperhalus partisi hingga tidak ada perubahan lebih lanjut.
   do {
-    // refinePartitions() akan membagi partisi yang ada menjadi partisi yang lebih kecil
     newPartitions = refinePartitions(automaton, partitions);
     stepCounter++;
     renderEquivalenceStep(newPartitions, stepCounter);
 
+    // Jika partisi tidak berubah setelah iterasi, proses berhenti.
     if (JSON.stringify(newPartitions) === JSON.stringify(partitions)) {
       break;
     }
     partitions = newPartitions;
   } while (true);
 
+  // Bangun DFA yang diminimalkan berdasarkan partisi terakhir.
   minimizedAutomaton = {
     states: [].concat(...partitions),
     alphabet: automaton.alphabet,
@@ -72,6 +74,7 @@ export function minimizeDFA() {
     transitions: reduceTransitions(automaton, partitions),
   };
 
+  // Tampilkan grafik DFA yang diminimalkan.
   renderGraph(
     buildMinimizedGraphDefinition(minimizedAutomaton, partitions),
     "minimizedGraph"
@@ -141,9 +144,15 @@ export function initialPartition(automaton) {
 // refinePartitions() akan membagi partisi yang ada menjadi partisi yang lebih kecil
 export function refinePartitions(automaton, oldPartitions) {
   let newPartitions = [];
-  oldPartitions.forEach((partition) => {
+  // console.log("Memulai proses partisi...");
+  // console.log("Partisi lama:", JSON.stringify(oldPartitions));
+
+  oldPartitions.forEach((partition, index) => {
     let subPartitions = {};
+    // console.log(`Memproses partisi ${index + 1}:`, partition);
+
     partition.forEach((state) => {
+      // Membuat kunci berdasarkan partisi nextState untuk setiap simbol.
       let key = automaton.alphabet
         .map((symbol) => {
           const nextState = getNextState(automaton, state, symbol);
@@ -153,13 +162,21 @@ export function refinePartitions(automaton, oldPartitions) {
           return partitionIndex >= 0 ? partitionIndex : -1; // Returns -1 if nextState is not found
         })
         .join("-");
+
+      // console.log(`State ${state}: Kunci transisi -> [${key}]`);
+
       if (!subPartitions[key]) {
         subPartitions[key] = [];
+        // console.log(`Membuat sub-partisi baru untuk kunci '${key}'`);
       }
       subPartitions[key].push(state);
     });
+
+    // console.log("Sub-partisi yang dihasilkan dari partisi ini:", subPartitions);
     newPartitions.push(...Object.values(subPartitions));
   });
+
+  // console.log("Partisi baru setelah pemurnian:", JSON.stringify(newPartitions));
   return newPartitions;
 }
 
@@ -189,7 +206,7 @@ export function reduceTransitions(automaton, partitions) {
       .filter((nextState) => nextState != null); // Filter out nulls
 
     nextStateRepresentatives.forEach((nextStateRepresentative) => {
-      // Check if the transition already exists
+      // Menambahkan transisi baru jika belum ada yang serupa.
       const existingTransitionIndex = reducedTransitions.findIndex(
         (transition) =>
           transition.state === representative &&

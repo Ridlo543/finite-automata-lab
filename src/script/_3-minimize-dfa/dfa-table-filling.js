@@ -18,26 +18,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function minimizeDFAWithTableFilling() {
+  // Dekonstruksi DFA untuk mendapatkan states, finalStates, dan transisi
   const { states, finalStates, transitions } = automaton;
+
+  // Inisialisasi tabel penandaan untuk menandai pasangan state yang tidak ekuivalen
   const marked = initializeMarked(states, finalStates);
   let isUpdated;
 
+  // Ulangi proses hingga tidak ada perubahan lagi pada tabel penandaan
   do {
     isUpdated = false;
+    // Periksa setiap pasangan state
     for (let i = 0; i < states.length; i++) {
       for (let j = i + 1; j < states.length; j++) {
+        // Hanya proses jika pasangan belum ditandai
         if (!marked[i][j]) {
           for (const symbol of automaton.alphabet) {
+            // Dapatkan state selanjutnya untuk masing-masing state dalam pasangan berdasarkan simbol yang sama
             const nextStateI = getNextState(automaton, states[i], symbol);
             const nextStateJ = getNextState(automaton, states[j], symbol);
             const indexI = states.indexOf(nextStateI);
             const indexJ = states.indexOf(nextStateJ);
 
-            if (indexI > indexJ && marked[indexJ][indexI]) {
-              marked[i][j] = true;
-              isUpdated = true;
-              break;
-            } else if (indexI < indexJ && marked[indexI][indexJ]) {
+            // Tandai pasangan jika state selanjutnya merupakan pasangan yang sudah ditandai
+            if (
+              (indexI > indexJ && marked[indexJ][indexI]) ||
+              (indexI < indexJ && marked[indexI][indexJ])
+            ) {
               marked[i][j] = true;
               isUpdated = true;
               break;
@@ -48,15 +55,18 @@ function minimizeDFAWithTableFilling() {
     }
   } while (isUpdated);
 
+  // Visualisasikan hasil algoritma pengisian tabel dan ekuivalen state
   renderTableFillingAlgorithm(marked, states);
 }
 
 function initializeMarked(states, finalStates) {
   const marked = [];
+  // Buat tabel 
   for (let i = 0; i < states.length; i++) {
     marked[i] = [];
     for (let j = 0; j < states.length; j++) {
       if (i < j) {
+        // Tandai sebagai 'berbeda' jika satu state adalah final dan satunya lagi bukan
         marked[i][j] =
           finalStates.includes(states[i]) !== finalStates.includes(states[j]);
       }
